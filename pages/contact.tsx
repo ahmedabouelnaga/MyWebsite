@@ -1,13 +1,14 @@
+// pages/contact.tsx
 import { useState } from 'react';
 
-export default function Contact() {
+export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log('Form Submitted:', formData);
     alert('Thank you for your message!');
@@ -23,7 +24,6 @@ export default function Contact() {
           yourname@example.com
         </a>
       </p>
-      
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg p-6 w-full max-w-md"
@@ -42,7 +42,6 @@ export default function Contact() {
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
-
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
             Email
@@ -57,25 +56,20 @@ export default function Contact() {
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
-
         <div className="mb-4">
-          <label
-            className="block text-gray-700 font-semibold mb-2"
-            htmlFor="message"
-          >
+          <label className="block text-gray-700 font-semibold mb-2" htmlFor="message">
             Message
           </label>
           <textarea
             id="message"
             name="message"
-            rows="5"
+            rows={5}
             value={formData.message}
             onChange={handleChange}
             required
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
-
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
@@ -87,3 +81,8 @@ export default function Contact() {
   );
 }
 
+import AllSectionsLayout from '../components/AllSectionsLayout';
+
+export default function ContactPage() {
+  return <AllSectionsLayout scrollToSection="contact" />;
+}
