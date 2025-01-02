@@ -1,15 +1,14 @@
-// pages/contact.tsx
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/sendEmail', {

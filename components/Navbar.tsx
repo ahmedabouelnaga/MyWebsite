@@ -1,5 +1,4 @@
 // components/Navbar.tsx
-import Link from 'next/link';
 import { useScrollSection } from '../hooks/useScrollSection';
 
 export default function Navbar() {

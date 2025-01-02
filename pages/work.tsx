@@ -80,7 +80,7 @@ export function WorkSection() {
           </h2>
           <p className="text-gray-700">June 2021 – Aug 2021</p>
           <p className="text-gray-600 max-w-2xl mt-2">
-            Built "Task Breaker" app to improve user task organization by 70%.
+            Built &quot;Task Breaker&quot; app to improve user task organization by 70%.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export function WorkSection() {
           </h2>
           <p className="text-gray-700">Feb 2021 – June 2021</p>
           <p className="text-gray-600 max-w-2xl mt-2">
-            Created "Just Keep Rolling" video game, receiving 85% positive
+            Created &quot;Just Keep Rolling&quot; video game, receiving 85% positive
             reviews.
           </p>
         </div>
