@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Add CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV === 'production' ? 'https://ahmedabouelnaga.com/' : '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
