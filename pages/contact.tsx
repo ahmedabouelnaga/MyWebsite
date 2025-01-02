@@ -15,19 +15,23 @@ export function ContactSection() {
     try {
       const response = await fetch('/api/sendEmail', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData)
       });
+
+      const data = await response.json();
+
       if (response.ok) {
         alert('Thank you for your message!');
         setFormData({ name: '', email: '', message: '' });
       } else {
-        const data = await response.json();
-        alert(`Error: ${data.error}`);
+        alert(`Error: ${data.error || 'Failed to send message'}`);
       }
     } catch (error) {
-      console.error('Form submission error:', error); // Log submission errors
-      alert('Error sending message.');
+      console.error('Form submission error:', error);
+      alert('Error sending message. Please try again later.');
     }
   };
 
