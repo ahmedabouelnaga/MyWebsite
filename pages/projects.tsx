@@ -1,4 +1,5 @@
 import { FaGithub } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 export function ProjectsSection() {
   const projects = [
@@ -33,19 +34,33 @@ export function ProjectsSection() {
       <h1 className="text-4xl font-bold text-green-700 mb-6 mt-10">Featured Projects</h1>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ staggerChildren: 0.2 }}
+      >
         {projects.map((project, index) => (
-          <div
+          <motion.div
             key={index}
-            className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)"
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 24 }}
+            className="bg-white rounded-lg shadow-md p-6"
           >
             <h2 className="text-2xl font-bold text-green-800 mb-2">
               {project.title}
             </h2>
             <p className="text-gray-700">{project.description}</p>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Main GitHub Button */}
       <button

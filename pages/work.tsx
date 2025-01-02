@@ -1,17 +1,56 @@
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 // pages/work.tsx
 
 export function WorkSection() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 24
+      }
+    }
+  };
+
   return (
     <div id="work" className="min-h-screen flex flex-col justify-start items-center bg-blue-50 px-6">
-      {/* Section Title */}
-      <h1 className="text-5xl font-bold text-blue-800 mt-16 mb-8">Work</h1>
+      <motion.h1
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="text-5xl font-bold text-blue-800 mt-16 mb-8"
+      >
+        Work
+      </motion.h1>
 
-      {/* Work Experience Timeline */}
-      <div className="flex flex-col space-y-12">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="flex flex-col space-y-12"
+      >
         {/* TA @ Columbia */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div
+          variants={item}
+          whileHover={{ scale: 1.05 }}
+          className="flex flex-col items-center text-center"
+        >
           <div className="bg-blue-100 p-4 rounded-full shadow-md flex justify-center items-center">
             {/* Icon */}
             <svg
@@ -33,10 +72,14 @@ export function WorkSection() {
             TA @ Columbia Dept. of Computer Science
           </h2>
           <p className="text-gray-700">January 2025 - Current</p>
-        </div>
+        </motion.div>
 
         {/* Google CSSI */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div
+          variants={item}
+          whileHover={{ scale: 1.05 }}
+          className="flex flex-col items-center text-center"
+        >
           <div className="bg-blue-100 p-4 rounded-full shadow-md flex justify-center items-center">
             {/* Google Icon */}
             <svg
@@ -58,10 +101,14 @@ export function WorkSection() {
             Developed an interactive travel recommendation website, improving
             user engagement by 40%.
           </p>
-        </div>
+        </motion.div>
 
         {/* Design The Future */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div
+          variants={item}
+          whileHover={{ scale: 1.05 }}
+          className="flex flex-col items-center text-center"
+        >
           <div className="bg-blue-100 p-4 rounded-full shadow-md flex justify-center items-center">
             {/* App Icon */}
             <svg
@@ -82,10 +129,14 @@ export function WorkSection() {
           <p className="text-gray-600 max-w-2xl mt-2">
             Built &quot;Task Breaker&quot; app to improve user task organization by 70%.
           </p>
-        </div>
+        </motion.div>
 
         {/* NYU Tisch */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div
+          variants={item}
+          whileHover={{ scale: 1.05 }}
+          className="flex flex-col items-center text-center"
+        >
           <div className="bg-blue-100 p-4 rounded-full shadow-md flex justify-center items-center">
             {/* Better Gaming Controller Icon */}
             <svg
@@ -114,8 +165,8 @@ export function WorkSection() {
             Created &quot;Just Keep Rolling&quot; video game, receiving 85% positive
             reviews.
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Call to Action */}
       <div className="mt-12">
