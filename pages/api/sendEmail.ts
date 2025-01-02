@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
-import { Error as NodemailerError } from 'nodemailer/lib/smtp-connection';
+
+interface MailError extends Error {
+  code?: string;
+}
 
 // Create reusable transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -49,8 +52,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await transporter.verify();
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: 'aa4925@columbia.edu', // Your Columbia email
+      from: `"${name}" <${email}>`, // This will show user's name and email as sender
+      to: process.env.EMAIL_USER,    // Your Gmail address
+      replyTo: email,               // Makes it easy to reply to the sender
       subject: `Portfolio Contact: ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
@@ -62,7 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         </div>
       `,
       text: `
-New Contact Form Submission
+Portfolio Site Form Submission
 ---------------------------
 Name: ${name}
 Email: ${email}
@@ -74,7 +78,7 @@ ${message}
 
     return res.status(200).json({ message: 'Email sent successfully!' });
   } catch (error: unknown) {
-    const mailerError = error as NodemailerError;
+    const mailerError = error as MailError;
     console.error('Failed to send email:', {
       error: mailerError.message,
       stack: mailerError.stack,
