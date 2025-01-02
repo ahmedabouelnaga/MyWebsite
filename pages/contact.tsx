@@ -1,10 +1,17 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [isError, setIsError] = useState(false);
+
+  // Add scroll to top effect
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -12,6 +19,9 @@ export function ContactSection() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setFeedbackMessage('Sending message...');
+    setIsError(false);
+    
     try {
       const response = await fetch('/api/sendEmail', {
         method: 'POST',
@@ -24,14 +34,17 @@ export function ContactSection() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Thank you for your message!');
+        setFeedbackMessage('Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
+        setIsError(false);
       } else {
-        alert(`Error: ${data.error || 'Failed to send message'}`);
+        setFeedbackMessage(`Error: ${data.error || 'Failed to send message'}`);
+        setIsError(true);
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      alert('Error sending message. Please try again later.');
+      setFeedbackMessage('Error sending message. Please try again later.');
+      setIsError(true);
     }
   };
 
@@ -73,10 +86,11 @@ export function ContactSection() {
     <div id="contact" className="min-h-screen bg-indigo-50 flex flex-col items-center justify-center p-4">
       <SlideInWhenVisible direction="top">
         <motion.h1
-          className="text-3xl font-bold text-blue-700 mb-4"
+          className="text-3xl font-bold text-blue-700 mb-2"
         >
           Contact Me!
         </motion.h1>
+        <p className="text-red-500 text-sm mb-4 text-center">(Not Active)</p>
       </SlideInWhenVisible>
 
       <SlideInWhenVisible direction="left" delay={0.2}>
@@ -160,6 +174,19 @@ export function ContactSection() {
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             />
           </motion.div>
+          
+          {feedbackMessage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className={`mb-4 p-3 rounded ${
+                isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
+              }`}
+            >
+              {feedbackMessage}
+            </motion.div>
+          )}
+          
           <motion.button
             variants={formControls}
             whileHover={{ scale: 1.05 }}

@@ -3,9 +3,15 @@ import type { AppProps } from 'next/app';
 import Navbar from '../components/Navbar';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
+  // Add this effect to reset scroll position
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router.pathname]);
 
   return (
     <AnimatePresence mode="wait">

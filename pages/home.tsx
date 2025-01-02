@@ -2,9 +2,14 @@
 
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import AllSectionsLayout from '../components/AllSectionsLayout';
 
 export function HomeSection() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const router = useRouter();
 
   const handleWorkClick = () => {
@@ -48,10 +53,14 @@ export function HomeSection() {
         </p>
         {/* Blue button linking to the Work page */}
         <motion.button
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ 
+            scale: 1.05,
+            boxShadow: "0 0 25px rgba(59, 130, 246, 0.5)",
+            background: "linear-gradient(to right, #3b82f6, #4f46e5)"
+          }}
           whileTap={{ scale: 0.95 }}
           onClick={handleWorkClick}
-          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg hover:from-blue-600 hover:to-indigo-700 shadow-lg transform transition duration-300 ease-in-out"
+          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg shadow-lg transform transition duration-300 ease-in-out"
         >
           My Work!
         </motion.button>
@@ -61,5 +70,9 @@ export function HomeSection() {
 }
 
 export default function HomePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return <AllSectionsLayout scrollToSection="home" />;
 }

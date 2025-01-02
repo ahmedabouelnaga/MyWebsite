@@ -14,13 +14,17 @@ interface AllSectionsLayoutProps {
 
 export default function AllSectionsLayout({ scrollToSection }: AllSectionsLayoutProps) {
   useEffect(() => {
-    if (scrollToSection) {
-      const el = document.getElementById(scrollToSection);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Always scroll to top first
+    window.scrollTo(0, 0);
+    
+    // Only scroll to section if explicitly requested
+    if (scrollToSection && scrollToSection !== 'home') {
+      setTimeout(() => {
+        const el = document.getElementById(scrollToSection);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   }, [scrollToSection]);
 
