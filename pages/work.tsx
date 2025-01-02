@@ -1,9 +1,37 @@
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 // pages/work.tsx
 
 export function WorkSection() {
+  const router = useRouter();
+
+  const handleEducationClick = () => {
+    const educationSection = document.getElementById('education');
+    if (educationSection) {
+      // Add highlight effect
+      educationSection.scrollIntoView({ behavior: 'smooth' });
+      educationSection.classList.add('scroll-highlight');
+      setTimeout(() => {
+        educationSection.classList.remove('scroll-highlight');
+      }, 1000);
+    } else {
+      // If section not found, navigate and then scroll
+      router.push('/education').then(() => {
+        setTimeout(() => {
+          const newEducationSection = document.getElementById('education');
+          if (newEducationSection) {
+            newEducationSection.scrollIntoView({ behavior: 'smooth' });
+            newEducationSection.classList.add('scroll-highlight');
+            setTimeout(() => {
+              newEducationSection.classList.remove('scroll-highlight');
+            }, 1000);
+          }
+        }, 100);
+      });
+    }
+  };
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -168,13 +196,16 @@ export function WorkSection() {
         </motion.div>
       </motion.div>
 
-      {/* Call to Action */}
+      {/* Replace Link button with motion button */}
       <div className="mt-12">
-        <Link href="/education">
-          <button className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg hover:from-blue-600 hover:to-indigo-700 shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            My Education!
-          </button>
-        </Link>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleEducationClick}
+          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg hover:from-blue-600 hover:to-indigo-700 shadow-lg transform transition duration-300 ease-in-out"
+        >
+          My Education!
+        </motion.button>
       </div>
     </div>
   );
