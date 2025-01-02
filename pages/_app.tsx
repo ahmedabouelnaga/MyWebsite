@@ -11,23 +11,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     <AnimatePresence mode="wait">
       <motion.div
         key={router.route}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20
-        }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
       >
+        {/* Our SINGLE Navbar for all routes */}
         <Navbar />
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Component {...pageProps} />
-        </motion.div>
+
+        {/* Render whatever page the user visits */}
+        <Component {...pageProps} />
       </motion.div>
     </AnimatePresence>
   );

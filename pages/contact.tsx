@@ -1,6 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -39,18 +38,11 @@ export function ContactSection() {
         <a href="mailto:yourname@example.com" className="text-blue-600 underline">
         </a>
       </p>
-      <motion.form
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+      <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg p-6 w-full max-w-md"
       >
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="mb-4"
-        >
+        <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
             Name
           </label>
@@ -63,11 +55,8 @@ export function ContactSection() {
             required
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
           />
-        </motion.div>
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="mb-4"
-        >
+        </div>
+        <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
             Email
           </label>
@@ -80,11 +69,8 @@ export function ContactSection() {
             required
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
           />
-        </motion.div>
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="mb-4"
-        >
+        </div>
+        <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2" htmlFor="message">
             Message
           </label>
@@ -97,16 +83,14 @@ export function ContactSection() {
             required
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
           />
-        </motion.div>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        </div>
+        <button
           type="submit"
           className="px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold rounded-full shadow-lg hover:from-blue-500 hover:to-blue-700 transform hover:scale-105 transition duration-300 ease-in-out"
         >
           Contact Ahmed
-        </motion.button>
-      </motion.form>
+        </button>
+      </form>
       <button
         onClick={() => window.open('https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/', '_blank')}
         className="mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition duration-300 ease-in-out flex items-center justify-center"
