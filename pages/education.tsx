@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export function EducationSection() {
   return (
     <div id="education" className="min-h-screen bg-purple-50 flex flex-col justify-center items-center px-6">
