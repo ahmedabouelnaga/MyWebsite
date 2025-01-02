@@ -1,9 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
+import { Error as NodemailerError } from 'nodemailer/lib/smtp-connection';
 
 // Create reusable transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_APP_PASSWORD // Use App Password, not regular password
@@ -11,8 +14,23 @@ const transporter = nodemailer.createTransport({
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // Add CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // Verify environment variables
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
+    console.error('Missing email configuration');
+    return res.status(500).json({ error: 'Server configuration error' });
   }
 
   const { name, email, message } = req.body;
@@ -27,6 +45,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    // Verify transporter before sending
+    await transporter.verify();
+
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: 'aa4925@columbia.edu', // Your Columbia email
@@ -52,8 +73,16 @@ ${message}
     });
 
     return res.status(200).json({ message: 'Email sent successfully!' });
-  } catch (error) {
-    console.error('Failed to send email:', error);
-    return res.status(500).json({ error: 'Failed to send email' });
+  } catch (error: unknown) {
+    const mailerError = error as NodemailerError;
+    console.error('Failed to send email:', {
+      error: mailerError.message,
+      stack: mailerError.stack,
+      code: mailerError.code
+    });
+    return res.status(500).json({ 
+      error: 'Failed to send email',
+      details: mailerError.message 
+    });
   }
 }
