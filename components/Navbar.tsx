@@ -1,21 +1,20 @@
 // components/Navbar.tsx
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useScrollSection } from '../hooks/useScrollSection';
 
 export default function Navbar() {
-  const router = useRouter();
-  const currentPath = router.pathname;
+  const currentSection = useScrollSection();
 
-  const getLinkClass = (path: string) => {
+  const getLinkClass = (section: string) => {
     const baseClasses = "transition-colors duration-200 hover:text-blue-400";
-    return currentPath === path
+    return currentSection === section
       ? `${baseClasses} text-blue-400 font-semibold`
       : `${baseClasses} text-white`;
   };
 
   return (
     <nav className="
-      sticky top-0 z-50
+      fixed top-0 z-50 w-full
       bg-black/30
       backdrop-blur-md
       text-white
@@ -24,19 +23,19 @@ export default function Navbar() {
     ">
       <div className="text-lg font-bold">Ahmed Abouelnaga</div>
       <div className="space-x-4 text-sm">
-        <Link href="/home" className={getLinkClass('/home')}>
+        <Link href="#home" className={getLinkClass('home')}>
           Home
         </Link>
-        <Link href="/work" className={getLinkClass('/work')}>
+        <Link href="#work" className={getLinkClass('work')}>
           Work
         </Link>
-        <Link href="/education" className={getLinkClass('/education')}>
+        <Link href="#education" className={getLinkClass('education')}>
           Education
         </Link>
-        <Link href="/projects" className={getLinkClass('/projects')}>
+        <Link href="#projects" className={getLinkClass('projects')}>
           Projects
         </Link>
-        <Link href="/contact" className={getLinkClass('/contact')}>
+        <Link href="#contact" className={getLinkClass('contact')}>
           Contact
         </Link>
       </div>

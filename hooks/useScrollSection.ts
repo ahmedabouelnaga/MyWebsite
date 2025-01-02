@@ -5,21 +5,21 @@ export function useScrollSection() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'work', 'education', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const sections = document.querySelectorAll('section');
+      const scrollPosition = window.scrollY;
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { top, bottom } = element.getBoundingClientRect();
-          if (top <= window.innerHeight / 2 && bottom >= window.innerHeight / 2) {
-            setCurrentSection(section);
-            break;
-          }
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (scrollPosition >= sectionTop - 100 && 
+            scrollPosition < sectionTop + sectionHeight - 100) {
+          setCurrentSection(section.id);
         }
-      }
+      });
     };
 
+    handleScroll(); // Call once on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

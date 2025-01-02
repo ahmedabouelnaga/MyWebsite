@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function WorkSection() {
   return (
-    <div className="min-h-screen flex flex-col justify-start items-center bg-blue-50 px-6">
+    <div id="work" className="min-h-screen flex flex-col justify-start items-center bg-blue-50 px-6">
       {/* Section Title */}
       <h1 className="text-5xl font-bold text-blue-800 mt-16 mb-8">Work</h1>
 

@@ -37,8 +37,6 @@ body {
   }
 }
 
-/* Example: Add a custom gradient background for a more vibrant look */
 .bg-beautiful {
   background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-  /* Feel free to change this gradient to something else you like */
 }

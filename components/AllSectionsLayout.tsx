@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Navbar from './Navbar';
 
 // Named exports from my pages
 import { HomeSection } from '../pages/home';
@@ -24,31 +25,13 @@ export default function AllSectionsLayout({ scrollToSection }: AllSectionsLayout
   }, [scrollToSection]);
 
   return (
-    // Single‐page vertical scroll
-    <div className="snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden scroll-smooth">
-      {/* We do NOT include <Navbar /> here anymore */}
-      <main>
-        {/* Each section stacked vertically */}
-        <section id="home">
-          <HomeSection />
-        </section>
-
-        <section id="work">
-          <WorkSection />
-        </section>
-
-        <section id="education">
-          <EducationSection />
-        </section>
-
-        <section id="projects">
-          <ProjectsSection />
-        </section>
-
-        <section id="contact">
-          <ContactSection />
-        </section>
-      </main>
+    <div className="relative">
+      <Navbar />
+      <section id="home"><HomeSection /></section>
+      <section id="work"><WorkSection /></section>
+      <section id="education"><EducationSection /></section>
+      <section id="projects"><ProjectsSection /></section>
+      <section id="contact"><ContactSection /></section>
     </div>
   );
 }

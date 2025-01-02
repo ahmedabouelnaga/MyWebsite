@@ -31,7 +31,7 @@ export function ContactSection() {
   };
 
   return (
-    <div className="min-h-screen bg-indigo-50 flex flex-col items-center justify-center p-4">
+    <div id="contact" className="min-h-screen bg-indigo-50 flex flex-col items-center justify-center p-4">
       <h1 className="text-3xl font-bold text-blue-700 mb-4">Contact Me</h1>
       <h2 className="text-xl font-semibold text-gray-500 mb-4">(Not Active)</h2>
       <p className="mb-6 text-gray-600 text-center">

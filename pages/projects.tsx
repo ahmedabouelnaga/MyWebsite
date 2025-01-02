@@ -29,7 +29,7 @@ export function ProjectsSection() {
   ];
 
   return (
-    <div className="min-h-screen bg-green-50 flex flex-col items-center justify-center p-4">
+    <div id="projects" className="min-h-screen bg-green-50 flex flex-col items-center justify-center p-4">
       <h1 className="text-4xl font-bold text-green-700 mb-6 mt-10">Projects</h1>
 
       {/* Projects Grid */}

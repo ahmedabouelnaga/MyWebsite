@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function HomeSection() {
   return (
-    <div className="relative h-screen w-full">
+    <div id="home" className="relative h-screen w-full">
       {/* Background image container */}
       <div
         className="
