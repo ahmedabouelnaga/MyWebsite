@@ -1,8 +1,27 @@
 // pages/home.tsx
 
-import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import AllSectionsLayout from '../components/AllSectionsLayout';
 
 export function HomeSection() {
+  const router = useRouter();
+
+  const handleWorkClick = () => {
+    router.push('/work').then(() => {
+      setTimeout(() => {
+        const workSection = document.getElementById('work');
+        if (workSection) {
+          workSection.scrollIntoView({ behavior: 'smooth' });
+          workSection.classList.add('scroll-highlight');
+          setTimeout(() => {
+            workSection.classList.remove('scroll-highlight');
+          }, 1000);
+        }
+      }, 100);
+    });
+  };
+
   return (
     <div id="home" className="relative h-screen w-full">
       {/* Background image container */}
@@ -28,18 +47,18 @@ export function HomeSection() {
           CS @ Columbia University
         </p>
         {/* Blue button linking to the Work page */}
-        <Link href="/work">
-          <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg hover:from-blue-600 hover:to-indigo-700 shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            My Work!
-          </button>
-        </Link>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleWorkClick}
+          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg hover:from-blue-600 hover:to-indigo-700 shadow-lg transform transition duration-300 ease-in-out"
+        >
+          My Work!
+        </motion.button>
       </div>
     </div>
   );
 }
-
-// Keep your existing default export
-import AllSectionsLayout from '../components/AllSectionsLayout';
 
 export default function HomePage() {
   return <AllSectionsLayout scrollToSection="home" />;

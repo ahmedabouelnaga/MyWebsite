@@ -1,17 +1,67 @@
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+
 export function EducationSection() {
+  const router = useRouter();
+
+  const handleProjectsClick = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+      projectsSection.classList.add('scroll-highlight');
+      setTimeout(() => {
+        projectsSection.classList.remove('scroll-highlight');
+      }, 1000);
+    } else {
+      router.push('/projects').then(() => {
+        setTimeout(() => {
+          document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      });
+    }
+  };
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 24
+      }
+    }
+  };
+
   return (
     <div id="education" className="min-h-screen bg-purple-50 flex flex-col justify-center items-center px-6">
-      {/* Section Title */}
-      <h1 className="text-5xl font-bold text-purple-800 mb-8">
+      <motion.h1
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="text-5xl font-bold text-purple-800 mb-8"
+      >
         Education
-      </h1>
+      </motion.h1>
 
-      {/* Education Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-        {/* Degree */}
-        <div className="flex flex-col items-center">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center"
+      >
+        <motion.div variants={item} whileHover={{ scale: 1.05 }} className="flex flex-col items-center">
           <div className="bg-purple-100 p-4 rounded-full shadow-md flex justify-center items-center">
-            {/* New Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-purple-700"
@@ -39,12 +89,10 @@ export function EducationSection() {
               Columbia University
             </a>
           </p>
-        </div>
+        </motion.div>
 
-        {/* Year */}
-        <div className="flex flex-col items-center">
+        <motion.div variants={item} whileHover={{ scale: 1.05 }} className="flex flex-col items-center">
           <div className="bg-purple-100 p-4 rounded-full shadow-md flex justify-center items-center">
-            {/* New Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-purple-700"
@@ -64,12 +112,10 @@ export function EducationSection() {
             Year
           </h2>
           <p className="text-gray-700">Aug 2022 - Present</p>
-        </div>
+        </motion.div>
 
-        {/* Current Project */}
-        <div className="flex flex-col items-center">
+        <motion.div variants={item} whileHover={{ scale: 1.05 }} className="flex flex-col items-center">
           <div className="bg-purple-100 p-4 rounded-full shadow-md flex justify-center items-center">
-            {/* New Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-purple-700"
@@ -91,12 +137,10 @@ export function EducationSection() {
           <p className="text-gray-700">
             AI-Based Predictive Model for Software Systems
           </p>
-        </div>
+        </motion.div>
 
-        {/* Skills */}
-        <div className="flex flex-col items-center">
+        <motion.div variants={item} whileHover={{ scale: 1.05 }} className="flex flex-col items-center">
           <div className="bg-purple-100 p-4 rounded-full shadow-md flex justify-center items-center">
-            {/* New Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-purple-700"
@@ -116,34 +160,24 @@ export function EducationSection() {
             Skills
           </h2>
           <p className="text-gray-700">Full-Stack Development, AI Research</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      {/* Call to Action */}
-      <div className="mt-12">
-        <button 
-          onClick={(e) => {
-            e.preventDefault();
-            const element = document.getElementById('projects');
-            if (element) {
-              const topOffset = element.offsetTop;
-              window.scrollTo({
-                top: topOffset,
-                behavior: 'smooth'
-              });
-              
-              // Add highlight animation
-              element.classList.add('scroll-highlight');
-              setTimeout(() => {
-                element.classList.remove('scroll-highlight');
-              }, 1000);
-            }
-          }}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="mt-12"
+      >
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleProjectsClick}
           className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-lg shadow-lg hover:from-purple-700 hover:to-purple-800 transform hover:scale-105 transition duration-300 ease-in-out"
         >
           My Projects!
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </div>
   );
 }
