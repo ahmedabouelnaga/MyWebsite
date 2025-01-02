@@ -44,18 +44,39 @@ export function ContactSection() {
     }
   };
 
+  const formItemVariants = {
+    focus: {
+      scale: 1.02,
+      boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)",
+      transition: { type: "spring", stiffness: 300, damping: 17 }
+    },
+    tap: { scale: 0.98 },
+    hover: {
+      y: -2,
+      boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+    }
+  };
+
+  const labelVariants = {
+    focus: {
+      color: "#3B82F6",
+      x: 5,
+      transition: { type: "spring", stiffness: 300, damping: 17 }
+    }
+  };
+
   return (
     <div id="contact" className="min-h-screen bg-indigo-50 flex flex-col items-center justify-center p-4">
       <SlideInWhenVisible direction="top">
         <motion.h1
           className="text-3xl font-bold text-blue-700 mb-4"
         >
-          Contact Me
+          Contact Me!
         </motion.h1>
       </SlideInWhenVisible>
 
       <SlideInWhenVisible direction="left" delay={0.2}>
-        <h2 className="text-xl font-semibold text-gray-500 mb-4">(Not Active)</h2>
+        <h2 className="text-xl font-semibold text-gray-500 mb-4"></h2>
         <p className="mb-6 text-gray-600 text-center">
           I&apos;d love to hear from you! Fill out the form below
         </p>
@@ -66,11 +87,20 @@ export function ContactSection() {
           onSubmit={handleSubmit}
           className="bg-white shadow-md rounded-lg p-6 w-full max-w-md"
         >
-          <motion.div variants={formControls} className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
+          <motion.div className="mb-4">
+            <motion.label
+              variants={labelVariants}
+              animate="normal"
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="name"
+            >
               Name
-            </label>
-            <input
+            </motion.label>
+            <motion.input
+              variants={formItemVariants}
+              whileFocus="focus"
+              whileTap="tap"
+              whileHover="hover"
               id="name"
               name="name"
               type="text"
@@ -80,11 +110,20 @@ export function ContactSection() {
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             />
           </motion.div>
-          <motion.div variants={formControls} className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
+          <motion.div className="mb-4">
+            <motion.label
+              variants={labelVariants}
+              animate="normal"
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="email"
+            >
               Email
-            </label>
-            <input
+            </motion.label>
+            <motion.input
+              variants={formItemVariants}
+              whileFocus="focus"
+              whileTap="tap"
+              whileHover="hover"
               id="email"
               name="email"
               type="email"
@@ -94,11 +133,20 @@ export function ContactSection() {
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             />
           </motion.div>
-          <motion.div variants={formControls} className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="message">
+          <motion.div className="mb-4">
+            <motion.label
+              variants={labelVariants}
+              animate="normal"
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="message"
+            >
               Message
-            </label>
-            <textarea
+            </motion.label>
+            <motion.textarea
+              variants={formItemVariants}
+              whileFocus="focus"
+              whileTap="tap"
+              whileHover="hover"
               id="message"
               name="message"
               rows={5}
