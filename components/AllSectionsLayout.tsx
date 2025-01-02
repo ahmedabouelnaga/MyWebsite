@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-// Named exports from your pages
+// Named exports from my pages
 import { HomeSection } from '../pages/home';
 import { WorkSection } from '../pages/work';
 import { EducationSection } from '../pages/education';
