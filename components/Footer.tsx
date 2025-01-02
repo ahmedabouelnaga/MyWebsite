@@ -5,9 +5,8 @@ export function ProjectsSection() {
   return (
     <div className="min-h-screen bg-green-50 flex flex-col items-center justify-center p-4">
       <h1 className="text-4xl font-bold text-green-700 mb-6 mt-10">Projects</h1>
-      {/* Add your projects here */}
-      {/* Display your projects here */}
-
+      {/* Add projects here */}
+      {/* Display projects here */}
       <button
         onClick={() => window.open('https://github.com/ahmedabouelnaga', '_blank')}
         className="mt-auto px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-full shadow-lg hover:from-green-600 hover:to-teal-700 transition flex items-center justify-center"
