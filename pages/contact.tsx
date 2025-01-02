@@ -1,5 +1,6 @@
 // pages/contact.tsx
 import { useState } from 'react';
+import { FaLinkedin } from 'react-icons/fa';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -8,20 +9,34 @@ export function ContactSection() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
-    alert('Thank you for your message!');
-    setFormData({ name: '', email: '', message: '' });
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        alert('Thank you for your message!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const data = await response.json();
+        alert(`Error: ${data.error}`);
+      }
+    } catch (error) {
+      console.error('Form submission error:', error); // Log submission errors
+      alert('Error sending message.');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-indigo-50 flex flex-col items-center justify-center p-4">
       <h1 className="text-3xl font-bold text-blue-700 mb-4">Contact Me</h1>
+      <h2 className="text-xl font-semibold text-gray-500 mb-4">(Not Active)</h2>
       <p className="mb-6 text-gray-600 text-center">
-        I’d love to hear from you! Fill out the form below or email me at{' '}
+        I’d love to hear from you! Fill out the form below
         <a href="mailto:yourname@example.com" className="text-blue-600 underline">
-          yourname@example.com
         </a>
       </p>
       <form
@@ -72,11 +87,18 @@ export function ContactSection() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold rounded-full shadow-lg hover:from-blue-500 hover:to-blue-700 transform hover:scale-105 transition duration-300 ease-in-out"
         >
-          Send Message
+          Contact Ahmed
         </button>
       </form>
+      <button
+        onClick={() => window.open('https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/', '_blank')}
+        className="mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition duration-300 ease-in-out flex items-center justify-center"
+      >
+        <FaLinkedin className="mr-2" />
+        LinkedIn
+      </button>
     </div>
   );
 }

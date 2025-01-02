@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { HomeSection } from '../pages/home';
 import { WorkSection } from '../pages/work';
 import { EducationSection } from '../pages/education';
-import { AboutSection } from '../pages/about';
 import { ProjectsSection } from '../pages/projects';
 import { ContactSection } from '../pages/contact';
 
@@ -40,10 +39,6 @@ export default function AllSectionsLayout({ scrollToSection }: AllSectionsLayout
 
         <section id="education">
           <EducationSection />
-        </section>
-
-        <section id="about">
-          <AboutSection />
         </section>
 
         <section id="projects">
