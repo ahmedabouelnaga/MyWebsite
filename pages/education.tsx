@@ -76,7 +76,7 @@ export function EducationSection() {
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-purple-700"
               fill="none"
-              viewBox="0 0 24 24"
+              viewBox="0 24 24"
               stroke="currentColor"
               strokeWidth={2}
             >
@@ -123,11 +123,28 @@ export function EducationSection() {
 
       {/* Call to Action */}
       <div className="mt-12">
-        <Link href="/projects">
-          <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-lg shadow-lg hover:from-purple-700 hover:to-purple-800 transform hover:scale-105 transition duration-300 ease-in-out">
-            My Projects!
-          </button>
-        </Link>
+        <button 
+          onClick={(e) => {
+            e.preventDefault();
+            const element = document.getElementById('projects');
+            if (element) {
+              const topOffset = element.offsetTop;
+              window.scrollTo({
+                top: topOffset,
+                behavior: 'smooth'
+              });
+              
+              // Add highlight animation
+              element.classList.add('scroll-highlight');
+              setTimeout(() => {
+                element.classList.remove('scroll-highlight');
+              }, 1000);
+            }
+          }}
+          className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-lg shadow-lg hover:from-purple-700 hover:to-purple-800 transform hover:scale-105 transition duration-300 ease-in-out"
+        >
+          My Projects!
+        </button>
       </div>
     </div>
   );
