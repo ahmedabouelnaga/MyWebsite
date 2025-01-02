@@ -5,8 +5,27 @@ import { useScrollSection } from '../hooks/useScrollSection';
 export default function Navbar() {
   const currentSection = useScrollSection();
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const topOffset = element.offsetTop;
+      window.scrollTo({
+        top: topOffset,
+        behavior: 'smooth',
+        // Add a longer duration for smoother animation
+      });
+
+      // Add active state animation
+      element.classList.add('scroll-highlight');
+      setTimeout(() => {
+        element.classList.remove('scroll-highlight');
+      }, 1000);
+    }
+  };
+
   const getLinkClass = (section: string) => {
-    const baseClasses = "transition-colors duration-200 hover:text-blue-400";
+    const baseClasses = "transition-colors duration-200 hover:text-blue-400 cursor-pointer";
     return currentSection === section
       ? `${baseClasses} text-blue-400 font-semibold`
       : `${baseClasses} text-white`;
@@ -23,21 +42,21 @@ export default function Navbar() {
     ">
       <div className="text-lg font-bold">Ahmed Abouelnaga</div>
       <div className="space-x-4 text-sm">
-        <Link href="#home" className={getLinkClass('home')}>
+        <a onClick={(e) => handleNavClick(e, 'home')} className={getLinkClass('home')}>
           Home
-        </Link>
-        <Link href="#work" className={getLinkClass('work')}>
+        </a>
+        <a onClick={(e) => handleNavClick(e, 'work')} className={getLinkClass('work')}>
           Work
-        </Link>
-        <Link href="#education" className={getLinkClass('education')}>
+        </a>
+        <a onClick={(e) => handleNavClick(e, 'education')} className={getLinkClass('education')}>
           Education
-        </Link>
-        <Link href="#projects" className={getLinkClass('projects')}>
+        </a>
+        <a onClick={(e) => handleNavClick(e, 'projects')} className={getLinkClass('projects')}>
           Projects
-        </Link>
-        <Link href="#contact" className={getLinkClass('contact')}>
+        </a>
+        <a onClick={(e) => handleNavClick(e, 'contact')} className={getLinkClass('contact')}>
           Contact
-        </Link>
+        </a>
       </div>
     </nav>
   );
