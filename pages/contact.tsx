@@ -226,6 +226,16 @@ export function ContactSection() {
           LinkedIn
         </motion.button>
       </SlideInWhenVisible>
+
+      {/* Add copyright text */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="text-gray-600 text-sm mt-8 mb-4"
+      >
+        Ahmed Abouelnaga © 2025. All rights reserved.
+      </motion.p>
     </div>
   );
 }
