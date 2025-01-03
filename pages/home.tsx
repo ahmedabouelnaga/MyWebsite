@@ -33,26 +33,17 @@ export function HomeSection() {
     <div id="home" className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 flex items-center justify-center relative">
       {/* Main container */}
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 gap-12">
-        {/* Left side - Image */}
-        <SlideInWhenVisible direction="left" delay={0.2}>
-          <div className="w-full md:w-[500px] h-[500px] relative rounded-2xl overflow-hidden shadow-2xl bg-gray-800">
-            <Image 
-              src="/home.jpg"
-              alt="Profile Image"
-              fill
-              priority={true}
-              loading="eager"
-              quality={90}
-              sizes="(max-width: 768px) 100vw, 500px"
-              style={{ 
-                objectFit: 'cover',
-                transform: 'translate3d(0, 0, 0)',
-              }}
-              placeholder="blur"
-              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAACh2Y2d0AAABhAAAADB6bWRpbgAAAcQAAAA4YlRSQ"
-            />
-          </div>
-        </SlideInWhenVisible>
+        {/* Left side - Image without animations */}
+        <div className="w-full md:w-[500px] h-[500px] relative rounded-2xl overflow-hidden shadow-2xl bg-gray-800">
+          <Image 
+            src="/home.jpg"
+            alt="Profile Image"
+            fill
+            priority={true}
+            sizes="(max-width: 768px) 100vw, 500px"
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
 
         {/* Right side - Content */}
         <div className="w-full md:flex-1 flex flex-col items-center md:items-start text-center md:text-left">
