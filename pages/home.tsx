@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Image from 'next/image';
+import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';
 import AllSectionsLayout from '../components/AllSectionsLayout';
 
 export function HomeSection() {
@@ -28,42 +30,54 @@ export function HomeSection() {
   };
 
   return (
-    <div id="home" className="relative h-screen w-full">
-      {/* Background image container */}
-      <div
-        className="
-          absolute inset-0 
-          bg-cover bg-center bg-no-repeat
-        "
-        style={{
-          backgroundImage: "url('/home.jpg')", // Correct path to your background image
-        }}
-      >
-        {/* Semi-transparent cyan overlay */}
-        <div className="absolute inset-0 bg-cyan-500/10"></div>
-      </div>
+    <div id="home" className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 flex items-center justify-center relative">
+      {/* Main container */}
+      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 gap-12">
+        {/* Left side - Image */}
+        <SlideInWhenVisible direction="left" delay={0.2}>
+          <div className="w-full md:w-[500px] h-[500px] relative rounded-2xl overflow-hidden shadow-2xl">
+            <Image 
+              src="/home.jpg"
+              alt="Profile Image"
+              fill
+              priority
+              style={{ objectFit: 'cover' }}
+              sizes="(max-width: 768px) 100vw, 500px"
+            />
+          </div>
+        </SlideInWhenVisible>
 
-      {/* Foreground content, centered */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        <h1 className="text-5xl md:text-6xl font-bold font-Volkswagen-Bold mb-4">
-          AHMED ABOUELNAGA
-        </h1>
-        <p className="text-xl md:text-2xl mb-6 font-Volkswagen-Bold">
-          CS @ Columbia University
-        </p>
-        {/* Blue button linking to the Work page */}
-        <motion.button
-          whileHover={{ 
-            scale: 1.05,
-            boxShadow: "0 0 25px rgba(59, 130, 246, 0.5)",
-            background: "linear-gradient(to right, #3b82f6, #4f46e5)"
-          }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleWorkClick}
-          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg shadow-lg transform transition duration-300 ease-in-out"
-        >
-          My Work!
-        </motion.button>
+        {/* Right side - Content */}
+        <div className="w-full md:flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+          <SlideInWhenVisible direction="right">
+            <motion.h1
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-Volkswagen-Bold"
+            >
+              AHMED ABOUELNAGA
+            </motion.h1>
+          </SlideInWhenVisible>
+
+          <SlideInWhenVisible direction="right" delay={0.2}>
+            <motion.p className="text-xl md:text-3xl text-blue-200 mb-8 font-Volkswagen-Bold">
+              CS @ Columbia University
+            </motion.p>
+          </SlideInWhenVisible>
+
+          <SlideInWhenVisible direction="right" delay={0.4}>
+            <motion.button
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 25px rgba(59, 130, 246, 0.5)",
+                background: "linear-gradient(to right, #3b82f6, #4f46e5)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleWorkClick}
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-xl shadow-lg transform transition duration-300 ease-in-out"
+            >
+              My Work!
+            </motion.button>
+          </SlideInWhenVisible>
+        </div>
       </div>
     </div>
   );

@@ -63,6 +63,12 @@ section {
   }
 }
 
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
 /* Add smooth transition for section changes */
 section {
   transition: all 0.5s ease-in-out;
