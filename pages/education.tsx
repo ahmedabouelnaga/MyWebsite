@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';
+import { useState } from 'react';
 
 export function EducationSection() {
+  const [isHovered, setIsHovered] = useState(false);
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -48,6 +51,8 @@ export function EducationSection() {
           <motion.div
             variants={item}
             whileHover={{ y: -8 }}
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
             className="col-span-full bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-purple-500/20"
           >
             <div className="flex items-center justify-between mb-6">
@@ -56,11 +61,15 @@ export function EducationSection() {
                 <p className="text-purple-400">Bachelor of Science in Computer Science</p>
                 <p className="text-gray-400">Aug 2022 - Present</p>
               </div>
-              <div className="hidden md:block">
+              <motion.div 
+                animate={isHovered ? { rotateY: 360 } : {}}
+                transition={{ duration: 1 }}
+                className="hidden md:block"
+              >
                 <svg className="w-24 h-24 text-purple-500/80" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0-6l-3.5 2.5M12 14l3.5 2.5"/>
                 </svg>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
 

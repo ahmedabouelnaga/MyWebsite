@@ -1,13 +1,27 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useEffect } from 'react';
-import Image from 'next/image';
-import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';
 import AllSectionsLayout from '../components/AllSectionsLayout';
 
 export function HomeSection() {
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const moveX = clientX - window.innerWidth / 2;
+    const moveY = clientY - window.innerHeight / 2;
+    const cursor = document.getElementById('cursor-glow');
+    if (cursor) {
+      cursor.style.transform = `translate(${moveX * 0.1}px, ${moveY * 0.1}px)`;
+    }
+  };
+
   return (
-    <div id="home" className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-emerald-900 relative overflow-hidden">
+    <div id="home" className="min-h-screen relative overflow-hidden" onMouseMove={handleMouseMove}>
+      {/* Cursor glow effect */}
+      <div
+        id="cursor-glow"
+        className="fixed w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none transition-transform duration-100 ease-out"
+        style={{ top: -250, left: -250 }}
+      />
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (

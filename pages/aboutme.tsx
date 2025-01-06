@@ -52,48 +52,50 @@ type SkillLogoType = {
   VueJS: string;
 };
 
-// Update skillLogos with type
+// Updated skillLogos with type
 const skillLogos: SkillLogoType = {
   // Languages
-  'Python': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg',
-  'JavaScript': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg',
+  Python: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg',
+  JavaScript: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg',
   'HTML/CSS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg',
-  'SQL': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg',
+  SQL: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg',
   'Node.js': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg',
-  'Go': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg',  // Added GoLang logo
+  Go: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg',  // Added GoLang logo
   // Frameworks & Tech
   'Spring Boot': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg',
-  'PostgreSQL': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg',
-  'ReactJS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg',
-  'Bootstrap': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg',
-  'AWS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg',
-  'VueJS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original.svg'
+  PostgreSQL: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg',
+  ReactJS: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg',
+  Bootstrap: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg',
+  AWS: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg',
+  VueJS: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original.svg',
 };
 
 export function AboutMeSection() {
   const [showLanguages, setShowLanguages] = useState(true);
-  
+
   const getCubeFaces = () => {
-    const availableSkills = showLanguages 
+    const availableSkills = showLanguages
       ? ['Python', 'JavaScript', 'HTML/CSS', 'SQL', 'Node.js', 'Go']
       : ['PostgreSQL', 'Spring Boot', 'ReactJS', 'Bootstrap', 'AWS', 'VueJS'];
-    
-    // Fixed type guard with proper type assertion
-    const faces = availableSkills.filter((skill): skill is keyof SkillLogoType => 
-      Object.keys(skillLogos).includes(skill)
+
+    // Fixed type guard by ensuring types align properly
+    const faces = availableSkills.filter(
+      (skill): skill is Extract<keyof SkillLogoType, string> => 
+        Object.hasOwn(skillLogos, skill)
     );
 
     while (faces.length < 6) {
       faces.push(faces[0]);
     }
+
     return faces;
   };
 
   const renderSkills = (skills: SkillItem[]) => {
     const maxYears = Math.max(...skills.map((s) => s.years));
-    
+
     return (
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -109,16 +111,20 @@ export function AboutMeSection() {
               transition={{ delay: index * 0.1 }}
               className="flex items-center space-x-4"
             >
-              <div className="w-24 text-sm font-medium text-blue-200">{skill.name}</div>
+              <div className="w-24 text-sm font-medium text-blue-200">
+                {skill.name}
+              </div>
               <div className="flex-1 bg-blue-900/30 rounded-full h-2 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${widthPercentage}%` }}
-                  transition={{ duration: 1, ease: "easeOut" }}
+                  transition={{ duration: 1, ease: 'easeOut' }}
                   className="h-full bg-blue-400 rounded-full"
                 />
               </div>
-              <div className="w-16 text-sm text-blue-200">{skill.years} yr(s)</div>
+              <div className="w-16 text-sm text-blue-200">
+                {skill.years} yr(s)
+              </div>
             </motion.div>
           );
         })}
@@ -127,10 +133,15 @@ export function AboutMeSection() {
   };
 
   return (
-    <div id="about" className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 px-6 py-24">
+    <div
+      id="about"
+      className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 px-6 py-24"
+    >
       <div className="max-w-6xl mx-auto">
         <SlideInWhenVisible direction="top">
-          <h1 className="text-5xl font-bold text-white mb-8 text-center">About Me</h1>
+          <h1 className="text-5xl font-bold text-white mb-8 text-center">
+            About Me
+          </h1>
         </SlideInWhenVisible>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -180,22 +191,22 @@ export function AboutMeSection() {
           {/* Right Column - Animated Cube */}
           <div className="hidden lg:flex items-center justify-center">
             <motion.div
-              animate={{ 
+              animate={{
                 rotateX: [0, 360],
                 rotateY: [0, 360],
               }}
               transition={{
                 duration: 20,
                 repeat: Infinity,
-                ease: "linear",
-                repeatType: "loop",
-                times: [0, 1]
+                ease: 'linear',
+                repeatType: 'loop',
+                times: [0, 1],
               }}
               className="cube"
-              style={{ 
+              style={{
                 transformStyle: 'preserve-3d',
-                perspective: '2000px',  // Increased for larger cube
-                transformOrigin: 'center center'
+                perspective: '2000px', // Increased for larger cube
+                transformOrigin: 'center center',
               }}
             >
               {getCubeFaces().map((face, index) => {
@@ -206,14 +217,14 @@ export function AboutMeSection() {
                     className={`face ${faces[index]}`}
                     initial={{ opacity: 1 }}
                     animate={{ opacity: 1 }}
-                    style={{ 
+                    style={{
                       backfaceVisibility: 'visible',
                       WebkitBackfaceVisibility: 'visible',
                       transform: `${faces[index]} translateZ(2px)`,
-                      zIndex: 1
+                      zIndex: 1,
                     }}
                   >
-                    <Image 
+                    <Image
                       src={skillLogos[face]}
                       alt={face}
                       width={80}
@@ -221,10 +232,10 @@ export function AboutMeSection() {
                       className="object-contain"
                       unoptimized
                       priority
-                      style={{ 
+                      style={{
                         imageRendering: 'crisp-edges',
                         WebkitFontSmoothing: 'antialiased',
-                        transform: 'translateZ(2px)'
+                        transform: 'translateZ(2px)',
                       }}
                     />
                   </motion.div>

@@ -2,12 +2,13 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FaGithub } from 'react-icons/fa';
 import AllSectionsLayout from '../components/AllSectionsLayout';
+import { useState } from 'react';
 
 interface Project {
   id: number;
   title: string;
   description: string;
-  longDescription: string;
+  longDescription?: string;  // Make longDescription optional
   techStack: string[];
   image: string;
   github?: string;
@@ -29,6 +30,7 @@ const projects: Project[] = [
     id: 2,
     title: "AI Tutor - Personalized Learning",
     description: "Machine learning-driven platform providing personalized education recommendations.",
+    longDescription: "Advanced AI algorithms analyze student performance and learning patterns to create tailored educational paths and content recommendations.",
     techStack: ["Python", "PyTorch", "Next.js", "PostgreSQL"],
     image: "/projects/aitutor.jpg",
     github: "https://github.com/yourusername/ai-tutor"
@@ -37,6 +39,7 @@ const projects: Project[] = [
     id: 3,
     title: "MedAssist - Healthcare AI",
     description: "AI-powered health assistant using natural language processing for preliminary health analysis.",
+    longDescription: "Leveraging NLP and machine learning to provide initial health assessments and medical information assistance.",
     techStack: ["Python", "TensorFlow", "NLP", "React", "MongoDB"],
     image: "/projects/medassist.jpg",
     github: "https://github.com/yourusername/medassist"
@@ -45,6 +48,7 @@ const projects: Project[] = [
     id: 4,
     title: "AutoBudget - Financial Planning",
     description: "Smart budgeting tool that analyzes spending patterns and provides personalized financial advice.",
+    longDescription: "AI-driven financial analysis tool that helps users understand their spending habits and make better financial decisions.",
     techStack: ["Python", "Machine Learning", "React", "Node.js"],
     image: "/projects/autobudget.jpg",
     github: "https://github.com/yourusername/autobudget"
@@ -53,6 +57,7 @@ const projects: Project[] = [
     id: 5,
     title: "EcoTracker - Environmental Monitor",
     description: "IoT-based system for monitoring and analyzing environmental data in real-time.",
+    longDescription: "Comprehensive environmental monitoring system using IoT sensors and real-time data analysis.",
     techStack: ["Python", "IoT", "React", "AWS"],
     image: "/projects/ecotracker.jpg",
     github: "https://github.com/yourusername/ecotracker"
@@ -61,6 +66,7 @@ const projects: Project[] = [
     id: 6,
     title: "CodeMentor - Programming Assistant",
     description: "AI-powered coding assistant that helps developers write better code and learn programming concepts.",
+    longDescription: "Intelligent coding assistant that provides real-time suggestions, code analysis, and programming concept explanations.",
     techStack: ["Python", "NLP", "TypeScript", "Node.js"],
     image: "/projects/codementor.jpg",
     github: "https://github.com/yourusername/codementor"
@@ -68,6 +74,15 @@ const projects: Project[] = [
 ];
 
 export function ProjectsSection() {
+  const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+
+  const allTechnologies = [...new Set(projects.flatMap(p => p.techStack))];
+  
+  const filteredProjects = selectedTech 
+    ? projects.filter(p => p.techStack.includes(selectedTech))
+    : projects;
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -94,17 +109,39 @@ export function ProjectsSection() {
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Tech Filter */}
+        <div className="flex flex-wrap gap-2 justify-center mb-8">
+          {allTechnologies.map((tech) => (
+            <motion.button
+              key={tech}
+              onClick={() => setSelectedTech(selectedTech === tech ? null : tech)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-4 py-2 rounded-full text-sm ${
+                selectedTech === tech 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
+              }`}
+            >
+              {tech}
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Projects Grid with enhanced interactivity */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <motion.div
               key={project.id}
+              layoutId={`project-${project.id}`}
               whileHover={{ y: -8, scale: 1.02 }}
+              onHoverStart={() => setHoveredProject(project.id)}
+              onHoverEnd={() => setHoveredProject(null)}
               className="group relative bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden"
             >
               {/* Project Image */}
@@ -132,6 +169,18 @@ export function ProjectsSection() {
                   ))}
                 </div>
               </div>
+
+              {hoveredProject === project.id && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent flex items-end p-6"
+                >
+                  <p className="text-gray-200 text-sm line-clamp-3">
+                    {project.longDescription}
+                  </p>
+                </motion.div>
+              )}
             </motion.div>
           ))}
         </motion.div>

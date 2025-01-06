@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import Image from 'next/image';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { ReactNode } from 'react';
 
 interface WorkExperience {
   id: number;
@@ -11,11 +10,13 @@ interface WorkExperience {
   period: string;
   description: string[];
   skills: string[];
-  image: string;
+  image?: string;  // Make image optional since we're using icons
   companyUrl?: string;
+  icon: ReactNode;
+  bgColor: string;
 }
 
-const workExperiences = [
+const workExperiences: WorkExperience[] = [
   {
     id: 1,
     company: "Google",
@@ -108,7 +109,7 @@ const workExperiences = [
     role: "App Development Intern",
     period: "June 2021 - August 2021",
     description: [
-      "Built 'Task Breaker' app to support 50+ individuals with disabilities in managing daily tasks, appointments, doctor visits, and medications.",
+      "Built &apos;Task Breaker&apos; app to support 50+ individuals with disabilities in managing daily tasks, appointments, doctor visits, and medications.",
       " Implemented 10+ key features resulting in 85% user satisfaction rate.",
       " Reduced app loading time by 45% ",
       " through code optimization and caching.Integrated 5 third-party APIs to enhance app functionality and user experience."
@@ -130,7 +131,7 @@ const workExperiences = [
     role: "Game Designer Intern",
     period: "February 2021 - June 2021",
     description: [
-      "Developed 'Just Keep Rolling' game achieving 85% positive reviews from 500+ players.",
+      "Developed &apos;Just Keep Rolling&apos; game achieving 85% positive reviews from 500+ players.",
       " Optimized game performance resulting in 60% reduction in loading times.",
       " Implemented 12 unique game mechanics leading to 30% increase in player retention.",
       " Collaborated with 3 artists and 2 sound designers to create immersive gaming experience."
@@ -176,8 +177,8 @@ export function WorkSection() {
             Work Experience
           </h1>
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-            Here's a brief overview of my professional journey and the amazing companies
-            I've had the opportunity to work with.
+            Here&apos;s a brief overview of my professional journey and the amazing companies
+            I&apos;ve had the opportunity to work with.
           </p>
         </motion.div>
 
