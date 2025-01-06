@@ -1,15 +1,12 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';
+import emailjs from '@emailjs/browser';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-
-  // Add scroll to top effect
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -17,9 +14,39 @@ export function ContactSection() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add alert for now since form is inactive
-    alert("Contact form is currently inactive");
+    setStatus('loading');
+
+    try {
+      if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 
+          !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 
+          !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+        throw new Error('Missing EmailJS configuration');
+      }
+
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          timestamp: new Date().toISOString(),
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
+
+      console.log('Email sent successfully:', result);
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Email send failed:', error);
+      setStatus('error');
+    } finally {
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
+
+  const LINKEDIN_URL = "https://www.linkedin.com/in/ahmedabouelnaga/";
 
   return (
     <div
@@ -48,7 +75,6 @@ export function ContactSection() {
             <p className="text-gray-300 text-lg">
               Have a question or want to work together?
             </p>
-            <p className="text-red-400 text-sm mt-2">(Contact Form Currently Inactive)</p>
           </div>
         </SlideInWhenVisible>
 
@@ -124,26 +150,58 @@ export function ContactSection() {
                 whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(99, 102, 241, 0.4)" }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium shadow-lg"
+                disabled={status === 'loading'}
+                className={`w-full py-4 ${
+                  status === 'loading' 
+                    ? 'bg-gray-600 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-indigo-600 to-purple-600'
+                } text-white rounded-lg font-medium`}
               >
-                Send Message
+                {status === 'loading' ? (
+                  <div className="flex items-center justify-center">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                    Sending...
+                  </div>
+                ) : (
+                  'Send Message'
+                )}
               </motion.button>
+
+              {/* Status Messages */}
+              {status === 'success' && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="mt-4 text-green-400 text-center"
+                >
+                  Message sent successfully!
+                </motion.p>
+              )}
+              {status === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="mt-4 text-red-400 text-center"
+                >
+                  Failed to send message. Please try again.
+                </motion.p>
+              )}
             </motion.div>
           </motion.form>
         </SlideInWhenVisible>
 
-        {/* LinkedIn Button */}
-        <SlideInWhenVisible direction="left" delay={0.2}>
-          <motion.button
-            onClick={() => window.open('https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/', '_blank')}
-            whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(99, 102, 241, 0.4)" }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-8 mx-auto flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium shadow-lg"
+        {/* LinkedIn Button - Simplified and Fixed */}
+        <div className="mt-8 flex justify-center">
+          <a
+            href="https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium shadow-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 active:scale-95"
           >
             <FaLinkedin size={20} />
             <span>LinkedIn</span>
-          </motion.button>
-        </SlideInWhenVisible>
+          </a>
+        </div>
 
         {/* Footer */}
         <motion.p
