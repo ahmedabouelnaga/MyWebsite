@@ -1,37 +1,8 @@
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
 
 // pages/work.tsx
 
 export function WorkSection() {
-  const router = useRouter();
-
-  const handleEducationClick = () => {
-    const educationSection = document.getElementById('education');
-    if (educationSection) {
-      // Add highlight effect
-      educationSection.scrollIntoView({ behavior: 'smooth' });
-      educationSection.classList.add('scroll-highlight');
-      setTimeout(() => {
-        educationSection.classList.remove('scroll-highlight');
-      }, 1000);
-    } else {
-      // If section not found, navigate and then scroll
-      router.push('/education').then(() => {
-        setTimeout(() => {
-          const newEducationSection = document.getElementById('education');
-          if (newEducationSection) {
-            newEducationSection.scrollIntoView({ behavior: 'smooth' });
-            newEducationSection.classList.add('scroll-highlight');
-            setTimeout(() => {
-              newEducationSection.classList.remove('scroll-highlight');
-            }, 1000);
-          }
-        }, 100);
-      });
-    }
-  };
-
   const container = {
     hidden: { opacity: 0 },
     show: {

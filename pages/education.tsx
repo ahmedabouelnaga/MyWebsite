@@ -1,26 +1,6 @@
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
 
 export function EducationSection() {
-  const router = useRouter();
-
-  const handleProjectsClick = () => {
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' });
-      projectsSection.classList.add('scroll-highlight');
-      setTimeout(() => {
-        projectsSection.classList.remove('scroll-highlight');
-      }, 1000);
-    } else {
-      router.push('/projects').then(() => {
-        setTimeout(() => {
-          document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      });
-    }
-  };
-
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -161,22 +141,6 @@ export function EducationSection() {
           </h2>
           <p className="text-gray-700">Full-Stack Development, AI Research</p>
         </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="mt-12"
-      >
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleProjectsClick}
-          className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-lg shadow-lg hover:from-purple-700 hover:to-purple-800 transform hover:scale-105 transition duration-300 ease-in-out"
-        >
-          My Projects!
-        </motion.button>
       </motion.div>
     </div>
   );

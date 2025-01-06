@@ -12,23 +12,6 @@ export function HomeSection() {
     window.scrollTo(0, 0);
   }, []);
 
-  const router = useRouter();
-
-  const handleWorkClick = () => {
-    router.push('/work').then(() => {
-      setTimeout(() => {
-        const workSection = document.getElementById('work');
-        if (workSection) {
-          workSection.scrollIntoView({ behavior: 'smooth' });
-          workSection.classList.add('scroll-highlight');
-          setTimeout(() => {
-            workSection.classList.remove('scroll-highlight');
-          }, 1000);
-        }
-      }, 100);
-    });
-  };
-
   return (
     <div id="home" className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 flex items-center justify-center relative">
       {/* Main container */}
