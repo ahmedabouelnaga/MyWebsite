@@ -104,7 +104,7 @@ const workExperiences: WorkExperience[] = [
       "Built Task Breaker, an app to support 50+ individuals with disabilities in managing daily tasks, appointments, doctor visits, and medications.",
       " Implemented 10+ key features resulting in 85% user satisfaction rate.",
       " Reduced app loading time by 45% ",
-      " through code optimization and caching.Integrated 5 third-party APIs to enhance app functionality and user experience."
+      " Through code optimization and caching.Integrated 5 third-party APIs to enhance app functionality and user experience."
     ],
     skills: ["React Native", "Node.js", "UI/UX Design", "APIs"],
     icon: (
