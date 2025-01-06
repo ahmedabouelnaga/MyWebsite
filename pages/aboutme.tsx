@@ -34,8 +34,26 @@ const frameworksData: SkillItem[] = [
   { name: 'AWS', years: 1 },
 ];
 
-// Update skillLogos to use direct image imports
-const skillLogos = {
+// Add type for skill logos
+type SkillLogoType = {
+  [key: string]: string;
+} & {
+  Python: string;
+  JavaScript: string;
+  'HTML/CSS': string;
+  SQL: string;
+  'Node.js': string;
+  Go: string;
+  'Spring Boot': string;
+  PostgreSQL: string;
+  ReactJS: string;
+  Bootstrap: string;
+  AWS: string;
+  VueJS: string;
+};
+
+// Update skillLogos with type
+const skillLogos: SkillLogoType = {
   // Languages
   'Python': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg',
   'JavaScript': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg',
@@ -55,14 +73,16 @@ const skillLogos = {
 export function AboutMeSection() {
   const [showLanguages, setShowLanguages] = useState(true);
   
-  // Updated getCubeFaces to match exact keys from skillLogos
   const getCubeFaces = () => {
     const availableSkills = showLanguages 
-      ? ['Python', 'JavaScript', 'HTML/CSS', 'SQL', 'Node.js', 'Go']  // Added Go to the faces
-      : ['PostgreSQL', 'Spring Boot', 'ReactJS', 'Bootstrap', 'AWS', 'VueJS']; // Replaced duplicate Spring Boot with VueJS
+      ? ['Python', 'JavaScript', 'HTML/CSS', 'SQL', 'Node.js', 'Go']
+      : ['PostgreSQL', 'Spring Boot', 'ReactJS', 'Bootstrap', 'AWS', 'VueJS'];
     
-    const faces = availableSkills.filter(skill => skillLogos[skill]);
-    // Pad with existing items if we don't have 6 skills
+    // Fixed type guard with proper type assertion
+    const faces = availableSkills.filter((skill): skill is keyof SkillLogoType => 
+      Object.keys(skillLogos).includes(skill)
+    );
+
     while (faces.length < 6) {
       faces.push(faces[0]);
     }
@@ -161,16 +181,22 @@ export function AboutMeSection() {
           <div className="hidden lg:flex items-center justify-center">
             <motion.div
               animate={{ 
-                rotateX: 360,
-                rotateY: 360,
+                rotateX: [0, 360],
+                rotateY: [0, 360],
               }}
               transition={{
                 duration: 20,
                 repeat: Infinity,
-                ease: "linear"
+                ease: "linear",
+                repeatType: "loop",
+                times: [0, 1]
               }}
               className="cube"
-              style={{ transformStyle: 'preserve-3d' }}  // Add this line
+              style={{ 
+                transformStyle: 'preserve-3d',
+                perspective: '2000px',  // Increased for larger cube
+                transformOrigin: 'center center'
+              }}
             >
               {getCubeFaces().map((face, index) => {
                 const faces = ['front', 'back', 'left', 'right', 'top', 'bottom'];
@@ -178,19 +204,28 @@ export function AboutMeSection() {
                   <motion.div
                     key={`${face}-${index}`}
                     className={`face ${faces[index]}`}
-                    initial={{ opacity: 1 }}  // Changed from 0 to 1
+                    initial={{ opacity: 1 }}
                     animate={{ opacity: 1 }}
-                    style={{ backfaceVisibility: 'visible' }}  // Add this line
+                    style={{ 
+                      backfaceVisibility: 'visible',
+                      WebkitBackfaceVisibility: 'visible',
+                      transform: `${faces[index]} translateZ(2px)`,
+                      zIndex: 1
+                    }}
                   >
                     <Image 
                       src={skillLogos[face]}
                       alt={face}
-                      width={64}
-                      height={64}
+                      width={80}
+                      height={80}
                       className="object-contain"
                       unoptimized
                       priority
-                      style={{ imageRendering: 'crisp-edges' }}  // Add this line
+                      style={{ 
+                        imageRendering: 'crisp-edges',
+                        WebkitFontSmoothing: 'antialiased',
+                        transform: 'translateZ(2px)'
+                      }}
                     />
                   </motion.div>
                 );

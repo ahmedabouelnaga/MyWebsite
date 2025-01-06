@@ -96,61 +96,56 @@
   
   /* Cube styling */
   .cube {
-    width: 150px;
-    height: 150px;
+    width: 700px;  /* Increased from 500px */
+    height: 700px;  /* Increased from 500px */
     position: relative;
     transform-style: preserve-3d;
-    animation: spin 6s infinite linear;
+    transform-origin: center center;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.3));  /* Golden glow effect */
+    animation: spin 20s linear infinite;
   }
   
   .face {
     position: absolute;
-    width: 150px;
-    height: 150px;
-    background: transparent;  /* Changed from rgba to transparent */
-    color: #fff;
+    width: 700px;  /* Increased from 500px */
+    height: 700px;  /* Increased from 500px */
+    background: rgba(255, 215, 0, 0.05);  /* Subtle golden background */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    backface-visibility: visible;  /* Changed from hidden to visible */
-    border: none;  /* Removed border */
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+    transform-style: preserve-3d;
+    border: 4px solid #FFD700;  /* Thicker golden border */
+    box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.2);  /* Inner glow */
     padding: 20px;
+    z-index: 1;
   }
   
   .face img {
-    max-width: 80%;
-    max-height: 80%;
-    filter: none;  /* Remove any filters */
+    max-width: 75%;  /* Slightly larger icons */
+    max-height: 75%;
+    transform: translateZ(5px);
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));  /* Golden glow on icons */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   /* Position each face */
-  .front {
-    transform: translateZ(75px);
-  }
-  .back {
-    transform: rotateY(180deg) translateZ(75px);
-  }
-  .right {
-    transform: rotateY(90deg) translateZ(75px);
-  }
-  .left {
-    transform: rotateY(-90deg) translateZ(75px);
-  }
-  .top {
-    transform: rotateX(90deg) translateZ(75px);
-  }
-  .bottom {
-    transform: rotateX(-90deg) translateZ(75px);
-  }
+  .front { transform: translateZ(350px); }  /* Increased from 250px */
+  .back { transform: rotateY(180deg) translateZ(350px); }
+  .right { transform: rotateY(90deg) translateZ(350px); }
+  .left { transform: rotateY(-90deg) translateZ(350px); }
+  .top { transform: rotateX(90deg) translateZ(350px); }
+  .bottom { transform: rotateX(-90deg) translateZ(350px); }
   
-  /* Spin animation for the cube */
   @keyframes spin {
-    from {
+    0% {
       transform: rotateX(0deg) rotateY(0deg);
     }
-    to {
+    100% {
       transform: rotateX(360deg) rotateY(360deg);
     }
   }
