@@ -21,6 +21,7 @@ const languagesData: SkillItem[] = [
   { name: 'C++', years: 2 },
   { name: 'C', years: 1 },
   { name: 'Swift (iOS)', years: 1 },
+  { name: 'Go', years: 1 },  // Added GoLang
 ];
 
 const frameworksData: SkillItem[] = [
@@ -29,8 +30,8 @@ const frameworksData: SkillItem[] = [
   { name: 'Spring Boot', years: 2 },
   { name: 'Natural Language Processing', years: 1 },
   { name: 'Large Language Models', years: 1 },
-  { name: 'NodeJS', years: 1 },
-  { name: 'VueJS', years: 1 },
+  { name: 'Bootstrap', years: 2 },
+  { name: 'AWS', years: 1 },
 ];
 
 // Update skillLogos to use direct image imports
@@ -41,10 +42,14 @@ const skillLogos = {
   'HTML/CSS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg',
   'SQL': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg',
   'Node.js': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg',
+  'Go': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg',  // Added GoLang logo
   // Frameworks & Tech
   'Spring Boot': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg',
   'PostgreSQL': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg',
-  'ReactJS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg'
+  'ReactJS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg',
+  'Bootstrap': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg',
+  'AWS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg',
+  'VueJS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original.svg'
 };
 
 export function AboutMeSection() {
@@ -53,8 +58,8 @@ export function AboutMeSection() {
   // Updated getCubeFaces to match exact keys from skillLogos
   const getCubeFaces = () => {
     const availableSkills = showLanguages 
-      ? ['Python', 'JavaScript', 'HTML/CSS', 'SQL', 'Node.js']
-      : ['PostgreSQL', 'Spring Boot', 'ReactJS'];
+      ? ['Python', 'JavaScript', 'HTML/CSS', 'SQL', 'Node.js', 'Go']  // Added Go to the faces
+      : ['PostgreSQL', 'Spring Boot', 'ReactJS', 'Bootstrap', 'AWS', 'VueJS']; // Replaced duplicate Spring Boot with VueJS
     
     const faces = availableSkills.filter(skill => skillLogos[skill]);
     // Pad with existing items if we don't have 6 skills
@@ -165,6 +170,7 @@ export function AboutMeSection() {
                 ease: "linear"
               }}
               className="cube"
+              style={{ transformStyle: 'preserve-3d' }}  // Add this line
             >
               {getCubeFaces().map((face, index) => {
                 const faces = ['front', 'back', 'left', 'right', 'top', 'bottom'];
@@ -172,17 +178,19 @@ export function AboutMeSection() {
                   <motion.div
                     key={`${face}-${index}`}
                     className={`face ${faces[index]}`}
-                    initial={{ opacity: 0 }}
+                    initial={{ opacity: 1 }}  // Changed from 0 to 1
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
+                    style={{ backfaceVisibility: 'visible' }}  // Add this line
                   >
                     <Image 
                       src={skillLogos[face]}
                       alt={face}
                       width={64}
                       height={64}
-                      className="object-contain filter invert"
+                      className="object-contain"
                       unoptimized
+                      priority
+                      style={{ imageRendering: 'crisp-edges' }}  // Add this line
                     />
                   </motion.div>
                 );

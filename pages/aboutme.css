@@ -107,23 +107,22 @@
     position: absolute;
     width: 150px;
     height: 150px;
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;  /* Changed from rgba to transparent */
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
     font-weight: bold;
-    backface-visibility: hidden;
-    border: 1px solid #fff;
-    backdrop-filter: blur(5px);
+    backface-visibility: visible;  /* Changed from hidden to visible */
+    border: none;  /* Removed border */
     padding: 20px;
   }
   
   .face img {
     max-width: 80%;
     max-height: 80%;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    filter: none;  /* Remove any filters */
   }
   
   /* Position each face */
