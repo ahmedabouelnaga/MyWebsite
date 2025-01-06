@@ -27,7 +27,38 @@ export function EducationSection() {
   };
 
   return (
-    <div id="education" className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 px-6 py-24">
+    <div
+      id="education"
+      className="min-h-screen bg-gradient-to-tr from-black via-gray-900 to-purple-950 px-6 py-24 relative overflow-hidden"
+    >
+      {/* Add animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-96 h-96 top-0 left-1/4 bg-purple-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute w-96 h-96 bottom-0 right-1/4 bg-pink-500/5 rounded-full blur-3xl"></div>
+        {/* Add floating academic symbols */}
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-purple-500/10 text-4xl"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: Math.random() * 5 + 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {["🎓", "📚", "💡", "🔬"][Math.floor(Math.random() * 4)]}
+          </motion.div>
+        ))}
+      </div>
+
       <div className="max-w-7xl mx-auto">
         <SlideInWhenVisible direction="top">
           <div className="text-center mb-16">

@@ -92,8 +92,19 @@ export function ProjectsSection() {
   };
 
   return (
-    <div id="projects" className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 px-6 py-24">
-      <div className="max-w-7xl mx-auto">
+    <div
+      id="projects"
+      className="min-h-screen bg-gradient-to-bl from-black via-gray-900 to-indigo-950 px-6 py-24 relative overflow-hidden"
+    >
+      {/* Updated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-96 h-96 top-1/4 -right-48 bg-indigo-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute w-96 h-96 bottom-1/4 -left-48 bg-violet-500/5 rounded-full blur-3xl"></div>
+        {/* Add diagonal lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,rgba(99,102,241,0.05)_49%,rgba(99,102,241,0.05)_51%,transparent_52%)] bg-[length:50px_50px]"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header - without GitHub button */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -142,7 +153,7 @@ export function ProjectsSection() {
               whileHover={{ y: -8, scale: 1.02 }}
               onHoverStart={() => setHoveredProject(project.id)}
               onHoverEnd={() => setHoveredProject(null)}
-              className="group relative bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden"
+              className="group relative bg-gray-950/30 backdrop-blur-sm rounded-xl overflow-hidden border border-indigo-500/10 hover:border-indigo-500/20"
             >
               {/* Project Image */}
               <div className="relative h-56 overflow-hidden">

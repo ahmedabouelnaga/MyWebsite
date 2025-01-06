@@ -22,7 +22,23 @@ export function ContactSection() {
   };
 
   return (
-    <div id="contact" className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 px-6 py-24">
+    <div
+      id="contact"
+      className="min-h-screen bg-gradient-to-tl from-black via-gray-900 to-emerald-950 px-6 py-24 relative overflow-hidden"
+    >
+      {/* Add animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-96 h-96 top-1/3 -right-48 bg-emerald-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute w-96 h-96 bottom-1/3 -left-48 bg-teal-500/5 rounded-full blur-3xl"></div>
+        {/* Add connecting lines animation */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.03]">
+          <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+            <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1"/>
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
       <div className="max-w-4xl mx-auto">
         <SlideInWhenVisible direction="top">
           <div className="text-center mb-16">

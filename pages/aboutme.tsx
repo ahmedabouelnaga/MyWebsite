@@ -135,9 +135,35 @@ export function AboutMeSection() {
   return (
     <div
       id="about"
-      className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 px-6 py-24"
+      className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-950 px-6 py-24 relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      {/* Updated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-96 h-96 -top-48 -left-48 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute w-96 h-96 -bottom-48 -right-48 bg-cyan-500/5 rounded-full blur-3xl animate-pulse"></div>
+        {/* Add tech-inspired particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-1 w-1 bg-blue-500/20 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <SlideInWhenVisible direction="top">
           <h1 className="text-5xl font-bold text-white mb-8 text-center">
             About Me

@@ -64,7 +64,7 @@ const workExperiences: WorkExperience[] = [
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M12 14l9-5-9-5-9 5 9 5z"
+          d="M12 14l9-5-9-5-9 5-9 5z"
         />
         <path
           strokeLinecap="round"
@@ -165,8 +165,17 @@ export function WorkSection() {
   };
 
   return (
-    <div id="work" className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 px-6 py-24">
-      <div className="max-w-6xl mx-auto">
+    <div
+      id="work"
+      className="min-h-screen bg-gradient-to-tr from-gray-900 via-blue-900 to-emerald-900 px-6 py-24 relative overflow-hidden"
+    >
+      {/* Add animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-96 h-96 top-0 left-1/4 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute w-96 h-96 bottom-0 right-1/4 bg-blue-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -193,7 +202,7 @@ export function WorkSection() {
             <motion.div
               key={exp.id}
               whileHover={{ y: -4 }}
-              className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden"
+              className="bg-gray-800/30 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700/50 hover:border-gray-600/50 transition-colors"
             >
               <div className="flex flex-col lg:flex-row items-center p-6">
                 {/* Icon Container */}
