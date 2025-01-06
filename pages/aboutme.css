@@ -1,0 +1,150 @@
+/* Container holds info on the left and the cube on the right */
+.about-me-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    font-family: sans-serif;
+    color: #fff;
+    background: linear-gradient(180deg, #022b45 0%, #0a69a9 100%);
+  }
+  
+  /* Left section with text, buttons, and skill listings */
+  .info-section {
+    width: 60%;
+    margin-right: 2rem;
+  }
+  
+  .info-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-text {
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    max-width: 600px;
+  }
+  
+  /* Toggle buttons */
+  .button-container {
+    margin-bottom: 1rem;
+  }
+  
+  .toggle-button {
+    background-color: #ffa600;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-button.active {
+    background-color: #ff7300;
+  }
+  
+  .toggle-button:hover {
+    background-color: #ff8e00;
+  }
+  
+  /* Skill chart area */
+  .skills-container {
+    margin-top: 1rem;
+  }
+  
+  .skill-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .skill-name {
+    width: 120px;
+    font-weight: bold;
+  }
+  
+  .skill-bar-wrapper {
+    background-color: #ccc;
+    width: 300px;
+    height: 10px;
+    margin: 0 0.5rem;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .skill-bar {
+    background-color: #ff7300;
+    height: 100%;
+    transition: width 0.5s;
+  }
+  
+  .skill-years {
+    min-width: 50px;
+    text-align: right;
+  }
+  
+  /* Cube container on the right */
+  .cube-container {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px; /* important for 3D effect */
+  }
+  
+  /* Cube styling */
+  .cube {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: spin 6s infinite linear;
+  }
+  
+  .face {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    backface-visibility: hidden;
+    border: 1px solid #fff;
+  }
+  
+  /* Position each face */
+  .front {
+    transform: translateZ(75px);
+  }
+  .back {
+    transform: rotateY(180deg) translateZ(75px);
+  }
+  .right {
+    transform: rotateY(90deg) translateZ(75px);
+  }
+  .left {
+    transform: rotateY(-90deg) translateZ(75px);
+  }
+  .top {
+    transform: rotateX(90deg) translateZ(75px);
+  }
+  .bottom {
+    transform: rotateX(-90deg) translateZ(75px);
+  }
+  
+  /* Spin animation for the cube */
+  @keyframes spin {
+    from {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+  

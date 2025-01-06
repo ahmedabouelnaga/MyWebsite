@@ -195,18 +195,6 @@ export function WorkSection() {
           </p>
         </motion.div>
       </motion.div>
-
-      {/* Replace Link button with motion button */}
-      <div className="mt-12">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleEducationClick}
-          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-lg hover:from-blue-600 hover:to-indigo-700 shadow-lg transform transition duration-300 ease-in-out"
-        >
-          My Education!
-        </motion.button>
-      </div>
     </div>
   );
 }

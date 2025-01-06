@@ -60,21 +60,6 @@ export function HomeSection() {
               CS @ Columbia University
             </motion.p>
           </SlideInWhenVisible>
-
-          <SlideInWhenVisible direction="right" delay={0.4}>
-            <motion.button
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 0 25px rgba(59, 130, 246, 0.5)",
-                background: "linear-gradient(to right, #3b82f6, #4f46e5)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleWorkClick}
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-xl shadow-lg transform transition duration-300 ease-in-out"
-            >
-              My Work!
-            </motion.button>
-          </SlideInWhenVisible>
         </div>
       </div>
     </div>
