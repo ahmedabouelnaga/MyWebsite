@@ -79,7 +79,7 @@ export function ProjectsSection() {
   return (
     <div id="projects" className="min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 px-6 py-24">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Header - without GitHub button */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -131,22 +131,24 @@ export function ProjectsSection() {
                     </span>
                   ))}
                 </div>
-
-                {/* GitHub Link Only */}
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors"
-                  >
-                    <FaGithub size={20} />
-                    <span>View Code</span>
-                  </a>
-                )}
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* GitHub Button - Moved to bottom */}
+        <motion.div className="mt-16 text-center">
+          <motion.a
+            href="https://github.com/ahmedabouelnaga"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium shadow-lg hover:from-blue-700 hover:to-purple-700"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaGithub size={24} />
+            <span>GitHub</span>
+          </motion.a>
         </motion.div>
       </div>
     </div>

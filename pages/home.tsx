@@ -1,5 +1,3 @@
-// pages/home.tsx
-
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useEffect } from 'react';
@@ -11,7 +9,7 @@ export function HomeSection() {
   return (
     <div id="home" className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-emerald-900 relative overflow-hidden">
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
@@ -58,20 +56,29 @@ export function HomeSection() {
           </p>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Enhanced Scroll Indicator */}
         <motion.div
-          className="absolute bottom-8"
-          animate={{
-            y: [0, 10, 0],
-          }}
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"
+          animate={{ y: [0, 6, 0] }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "easeInOut"
           }}
         >
-          <div className="w-6 h-10 border-2 border-gray-500 rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-gray-500 rounded-full mt-2" />
+          <span className="text-gray-400 text-sm tracking-wider">Scroll</span>
+          <div className="w-6 h-10 border-2 border-emerald-500/50 rounded-full flex justify-center relative">
+            <motion.div 
+              className="w-1.5 h-1.5 bg-emerald-400 rounded-full absolute"
+              animate={{
+                y: [4, 16, 4]
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
           </div>
         </motion.div>
       </div>

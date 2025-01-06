@@ -125,7 +125,7 @@ export function ContactSection() {
             className="mt-8 mx-auto flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium shadow-lg"
           >
             <FaLinkedin size={20} />
-            <span>Connect on LinkedIn</span>
+            <span>LinkedIn</span>
           </motion.button>
         </SlideInWhenVisible>
 

@@ -54,16 +54,26 @@ const workExperiences = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-12 w-12 text-blue-700"
-        fill="none"
+        className="h-16 w-16 text-blue-700"
         viewBox="0 0 24 24"
+        fill="none"
         stroke="currentColor"
         strokeWidth={2}
       >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M12 14l9-5-9-5-9 5-9 5zm0 0v6m0-6l-3.5 2.5M12 14l3.5 2.5"
+          d="M12 14l9-5-9-5-9 5 9 5z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 14v6"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 14l-3.5 2M12 14l3.5 2"
         />
       </svg>
     ),
@@ -255,12 +265,6 @@ export function WorkSection() {
             </motion.div>
           ))}
         </motion.div>
-        <p className="text-gray-600 max-w-2xl mt-2">
-          Built &quot;Task Breaker&quot; app to improve user task organization.
-        </p>
-        <p className="text-gray-600 max-w-2xl mt-2">
-          Created &quot;Just Keep Rolling&quot; video game, receiving positive reviews.
-        </p>
       </div>
     </div>
   );

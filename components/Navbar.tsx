@@ -1,6 +1,7 @@
 // components/Navbar.tsx
 import { useScrollSection } from '../hooks/useScrollSection';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 export default function Navbar() {
   const currentSection = useScrollSection();
@@ -14,20 +15,26 @@ export default function Navbar() {
   };
 
   const getLinkClass = (section: string) => {
-    const baseClasses = "transition-colors duration-200 hover:text-blue-400 cursor-pointer";
+    const baseClasses = "transition-all duration-300 hover:text-emerald-400 cursor-pointer relative px-2 py-1";
     return currentSection === section
-      ? `${baseClasses} text-blue-400 font-semibold border-b-2 border-blue-400`
-      : `${baseClasses} text-white`;
+      ? `${baseClasses} text-emerald-400 font-medium before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-px before:bg-gradient-to-r before:from-transparent before:via-emerald-400 before:to-transparent`
+      : `${baseClasses} text-gray-300`;
   };
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-black/30 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="text-lg font-bold text-white">Ahmed Abouelnaga</div>
+    <nav className="fixed top-0 z-50 w-full bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-400"
+        >
+          Ahmed Abouelnaga
+        </motion.div>
         
-        {/* Navigation Links */}
         <div className="flex items-center space-x-8">
-          <div className="space-x-8 text-sm">
+          {/* Navigation Links */}
+          <div className="space-x-6 text-sm">
             {['home', 'about', 'work', 'education', 'projects', 'contact'].map((section) => (
               <a
                 key={section}
@@ -41,22 +48,24 @@ export default function Navbar() {
 
           {/* Social Links */}
           <div className="flex items-center space-x-4">
-            <a
+            <motion.a
+              whileHover={{ scale: 1.1, y: -2 }}
               href="https://github.com/ahmedabouelnaga"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-blue-400 transition-colors"
+              className="text-gray-300 hover:text-emerald-400 transition-colors"
             >
               <FaGithub size={20} />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.1, y: -2 }}
               href="https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-blue-400 transition-colors"
+              className="text-gray-300 hover:text-emerald-400 transition-colors"
             >
               <FaLinkedin size={20} />
-            </a>
+            </motion.a>
           </div>
         </div>
       </div>
