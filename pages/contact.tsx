@@ -5,8 +5,6 @@ import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [feedbackMessage, setFeedbackMessage] = useState('');
-  const [isError, setIsError] = useState(false);
 
   // Add scroll to top effect
   useEffect(() => {
@@ -19,223 +17,128 @@ export function ContactSection() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFeedbackMessage('Sending message...');
-    setIsError(false);
-    
-    try {
-      const response = await fetch('/api/sendEmail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setFeedbackMessage('Message sent successfully!');
-        setFormData({ name: '', email: '', message: '' });
-        setIsError(false);
-      } else {
-        setFeedbackMessage(`Error: ${data.error || 'Failed to send message'}`);
-        setIsError(true);
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setFeedbackMessage('Error sending message. Please try again later.');
-      setIsError(true);
-    }
-  };
-
-  const formControls = {
-    hidden: { opacity: 0, y: 20 },
-    show: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 24
-      }
-    }
-  };
-
-  const formItemVariants = {
-    focus: {
-      scale: 1.02,
-      boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)",
-      transition: { type: "spring", stiffness: 300, damping: 17 }
-    },
-    tap: { scale: 0.98 },
-    hover: {
-      y: -2,
-      boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
-    }
-  };
-
-  const labelVariants = {
-    focus: {
-      color: "#3B82F6",
-      x: 5,
-      transition: { type: "spring", stiffness: 300, damping: 17 }
-    }
+    // Add alert for now since form is inactive
+    alert("Contact form is currently inactive");
   };
 
   return (
-    <div id="contact" className="min-h-screen bg-indigo-50 flex flex-col items-center justify-center p-4">
-      <SlideInWhenVisible direction="top">
-        <motion.h1
-          className="text-3xl font-bold text-blue-700 mb-2"
-        >
-          Contact Me!
-        </motion.h1>
-        <p className="text-red-500 text-sm mb-4 text-center">(Not Active)</p>
-      </SlideInWhenVisible>
+    <div id="contact" className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 px-6 py-24">
+      <div className="max-w-4xl mx-auto">
+        <SlideInWhenVisible direction="top">
+          <div className="text-center mb-16">
+            <h1 className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+              Let&apos;s Connect
+            </h1>
+            <p className="text-gray-300 text-lg">
+              Have a question or want to work together?
+            </p>
+            <p className="text-red-400 text-sm mt-2">(Contact Form Currently Inactive)</p>
+          </div>
+        </SlideInWhenVisible>
 
-      <SlideInWhenVisible direction="left" delay={0.2}>
-        <h2 className="text-xl font-semibold text-gray-500 mb-4"></h2>
-        <p className="mb-6 text-gray-600 text-center">
-          I&apos;d love to hear from you! Fill out the form below
-        </p>
-      </SlideInWhenVisible>
+        <SlideInWhenVisible direction="right">
+          <motion.form
+            onSubmit={handleSubmit}
+            className="bg-gray-800/30 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-indigo-500/20"
+          >
+            {/* Form Fields */}
+            <motion.div className="space-y-6">
+              {/* Name Input */}
+              <div>
+                <motion.label
+                  className="block text-indigo-300 font-medium mb-2"
+                  htmlFor="name"
+                >
+                  Name
+                </motion.label>
+                <motion.input
+                  whileFocus={{ scale: 1.02 }}
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full bg-gray-900/50 border border-indigo-500/30 rounded-lg px-4 py-3 text-gray-100 focus:outline-none focus:border-indigo-500 transition-colors"
+                  required
+                />
+              </div>
 
-      <SlideInWhenVisible direction="right" delay={0.4}>
-        <motion.form
-          onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded-lg p-6 w-full max-w-md"
-        >
-          <motion.div className="mb-4">
-            <motion.label
-              variants={labelVariants}
-              animate="normal"
-              className="block text-gray-700 font-semibold mb-2"
-              htmlFor="name"
-            >
-              Name
-            </motion.label>
-            <motion.input
-              variants={formItemVariants}
-              whileFocus="focus"
-              whileTap="tap"
-              whileHover="hover"
-              id="name"
-              name="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-            />
-          </motion.div>
-          <motion.div className="mb-4">
-            <motion.label
-              variants={labelVariants}
-              animate="normal"
-              className="block text-gray-700 font-semibold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </motion.label>
-            <motion.input
-              variants={formItemVariants}
-              whileFocus="focus"
-              whileTap="tap"
-              whileHover="hover"
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-            />
-          </motion.div>
-          <motion.div className="mb-4">
-            <motion.label
-              variants={labelVariants}
-              animate="normal"
-              className="block text-gray-700 font-semibold mb-2"
-              htmlFor="message"
-            >
-              Message
-            </motion.label>
-            <motion.textarea
-              variants={formItemVariants}
-              whileFocus="focus"
-              whileTap="tap"
-              whileHover="hover"
-              id="message"
-              name="message"
-              rows={5}
-              value={formData.message}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-            />
-          </motion.div>
-          
-          {feedbackMessage && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className={`mb-4 p-3 rounded ${
-                isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
-              }`}
-            >
-              {feedbackMessage}
+              {/* Email Input */}
+              <div>
+                <motion.label
+                  className="block text-indigo-300 font-medium mb-2"
+                  htmlFor="email"
+                >
+                  Email
+                </motion.label>
+                <motion.input
+                  whileFocus={{ scale: 1.02 }}
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full bg-gray-900/50 border border-indigo-500/30 rounded-lg px-4 py-3 text-gray-100 focus:outline-none focus:border-indigo-500 transition-colors"
+                  required
+                />
+              </div>
+
+              {/* Message Input */}
+              <div>
+                <motion.label
+                  className="block text-indigo-300 font-medium mb-2"
+                  htmlFor="message"
+                >
+                  Message
+                </motion.label>
+                <motion.textarea
+                  whileFocus={{ scale: 1.02 }}
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={5}
+                  className="w-full bg-gray-900/50 border border-indigo-500/30 rounded-lg px-4 py-3 text-gray-100 focus:outline-none focus:border-indigo-500 transition-colors"
+                  required
+                />
+              </div>
+
+              {/* Submit Button */}
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(99, 102, 241, 0.4)" }}
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium shadow-lg"
+              >
+                Send Message
+              </motion.button>
             </motion.div>
-          )}
-          
+          </motion.form>
+        </SlideInWhenVisible>
+
+        {/* LinkedIn Button */}
+        <SlideInWhenVisible direction="left" delay={0.2}>
           <motion.button
-            variants={formControls}
-            whileHover={{ scale: 1.05 }}
+            onClick={() => window.open('https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/', '_blank')}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(99, 102, 241, 0.4)" }}
             whileTap={{ scale: 0.95 }}
-            type="submit"
-            className="px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold rounded-full shadow-lg"
+            className="mt-8 mx-auto flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium shadow-lg"
           >
-            Contact Ahmed
+            <FaLinkedin size={20} />
+            <span>Connect on LinkedIn</span>
           </motion.button>
-        </motion.form>
-      </SlideInWhenVisible>
+        </SlideInWhenVisible>
 
-      <SlideInWhenVisible direction="bottom" delay={0.6}>
-        <motion.button
-          whileHover={{ 
-            scale: 1.05,
-            boxShadow: "0 0 25px rgba(59, 130, 246, 0.5)",
-            background: "linear-gradient(to right, #4f46e5, #7c3aed)"
-          }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => window.open('https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/', '_blank')}
-          className="mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg flex items-center justify-center"
+        {/* Footer */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="text-center text-gray-400 mt-12"
         >
-          <motion.div
-            animate={{
-              rotate: [0, 0, -10, 10, 0],
-            }}
-            transition={{
-              duration: 2.5,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }}
-          >
-            <FaLinkedin className="mr-2" />
-          </motion.div>
-          LinkedIn
-        </motion.button>
-      </SlideInWhenVisible>
-
-      {/* Add copyright text */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="text-gray-600 text-sm mt-8 mb-4"
-      >
-        Ahmed Abouelnaga © 2025. All rights reserved.
-      </motion.p>
+          Ahmed Abouelnaga © {new Date().getFullYear()}
+        </motion.p>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Image from 'next/image';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
@@ -61,7 +63,7 @@ const workExperiences = [
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0-6l-3.5 2.5M12 14l3.5 2.5"
+          d="M12 14l9-5-9-5-9 5-9 5zm0 0v6m0-6l-3.5 2.5M12 14l3.5 2.5"
         />
       </svg>
     ),
@@ -123,7 +125,7 @@ const workExperiences = [
       " Implemented 12 unique game mechanics leading to 30% increase in player retention.",
       " Collaborated with 3 artists and 2 sound designers to create immersive gaming experience."
     ],
-    skills: ["Unity", "C#", "Game Design", "3D Modeling"],
+    skills: ["Unity", "C++", "Game Design", "3D Modeling"],
     icon: (
       <svg viewBox="0 0 24 24" className="h-16 w-16 text-indigo-700">
         <path
@@ -137,6 +139,12 @@ const workExperiences = [
 ];
 
 export function WorkSection() {
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+
+  const toggleExpand = (id: number) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -187,8 +195,50 @@ export function WorkSection() {
                   <h3 className="text-2xl font-bold text-white mb-2">{exp.role}</h3>
                   <p className="text-blue-400 text-lg mb-1">{exp.company}</p>
                   <p className="text-gray-400 mb-4">{exp.period}</p>
-                  <p className="text-gray-300 mb-4">{exp.description}</p>
-                  
+                  <ul className={`space-y-2 mb-6 ${expandedId === exp.id ? 'hidden' : 'block'}`}>
+                    <li className="text-gray-300 flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      {exp.description[0]}
+                    </li>
+                  </ul>
+
+                  {/* Expanded Description */}
+                  {expandedId === exp.id && (
+                    <motion.ul
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="space-y-2 mb-6"
+                    >
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="text-gray-300 flex items-start">
+                          <span className="text-blue-400 mr-2">•</span>
+                          {item}
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+
+                  {/* Toggle Button */}
+                  <motion.button
+                    onClick={() => toggleExpand(exp.id)}
+                    className="mb-6 px-4 py-2 bg-blue-900/50 text-blue-200 rounded-full text-sm flex items-center space-x-2 hover:bg-blue-800/50 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {expandedId === exp.id ? (
+                      <>
+                        <FaChevronUp className="h-4 w-4" />
+                        <span>Show Less</span>
+                      </>
+                    ) : (
+                      <>
+                        <FaChevronDown className="h-4 w-4" />
+                        <span>Learn More</span>
+                      </>
+                    )}
+                  </motion.button>
+
                   {/* Skills */}
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map((skill) => (
@@ -205,6 +255,12 @@ export function WorkSection() {
             </motion.div>
           ))}
         </motion.div>
+        <p className="text-gray-600 max-w-2xl mt-2">
+          Built &quot;Task Breaker&quot; app to improve user task organization.
+        </p>
+        <p className="text-gray-600 max-w-2xl mt-2">
+          Created &quot;Just Keep Rolling&quot; video game, receiving positive reviews.
+        </p>
       </div>
     </div>
   );
