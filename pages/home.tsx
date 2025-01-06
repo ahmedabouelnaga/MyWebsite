@@ -1,7 +1,8 @@
 // pages/home.tsx
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+// Remove unused import
+// import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Image from 'next/image';
 import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';

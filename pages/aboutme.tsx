@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 import AllSectionsLayout from '../components/AllSectionsLayout';
 import SlideInWhenVisible from '../components/animation/SlideInWhenVisible';
 
@@ -32,8 +33,36 @@ const frameworksData: SkillItem[] = [
   { name: 'VueJS', years: 1 },
 ];
 
+// Update skillLogos to use direct image imports
+const skillLogos = {
+  // Languages
+  'Python': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg',
+  'JavaScript': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg',
+  'HTML/CSS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg',
+  'SQL': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg',
+  'Node.js': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg',
+  // Frameworks & Tech
+  'Spring Boot': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg',
+  'PostgreSQL': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg',
+  'ReactJS': 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg'
+};
+
 export function AboutMeSection() {
   const [showLanguages, setShowLanguages] = useState(true);
+  
+  // Updated getCubeFaces to match exact keys from skillLogos
+  const getCubeFaces = () => {
+    const availableSkills = showLanguages 
+      ? ['Python', 'JavaScript', 'HTML/CSS', 'SQL', 'Node.js']
+      : ['PostgreSQL', 'Spring Boot', 'ReactJS'];
+    
+    const faces = availableSkills.filter(skill => skillLogos[skill]);
+    // Pad with existing items if we don't have 6 skills
+    while (faces.length < 6) {
+      faces.push(faces[0]);
+    }
+    return faces;
+  };
 
   const renderSkills = (skills: SkillItem[]) => {
     const maxYears = Math.max(...skills.map((s) => s.years));
@@ -137,12 +166,27 @@ export function AboutMeSection() {
               }}
               className="cube"
             >
-              <div className="face front">HTML</div>
-              <div className="face back">Python</div>
-              <div className="face left">C++</div>
-              <div className="face right">Node</div>
-              <div className="face top">CSS</div>
-              <div className="face bottom">JS</div>
+              {getCubeFaces().map((face, index) => {
+                const faces = ['front', 'back', 'left', 'right', 'top', 'bottom'];
+                return (
+                  <motion.div
+                    key={`${face}-${index}`}
+                    className={`face ${faces[index]}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Image 
+                      src={skillLogos[face]}
+                      alt={face}
+                      width={64}
+                      height={64}
+                      className="object-contain filter invert"
+                      unoptimized
+                    />
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         </div>
