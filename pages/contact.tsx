@@ -46,8 +46,6 @@ export function ContactSection() {
     }
   };
 
-  const LINKEDIN_URL = "https://www.linkedin.com/in/ahmedabouelnaga/";
-
   return (
     <div
       id="contact"
@@ -190,7 +188,7 @@ export function ContactSection() {
           </motion.form>
         </SlideInWhenVisible>
 
-        {/* LinkedIn Button - Simplified and Fixed */}
+        {/* LinkedIn Button */}
         <div className="mt-8 flex justify-center">
           <a
             href="https://www.linkedin.com/in/ahmed-abouelnaga-2a8017208/"
