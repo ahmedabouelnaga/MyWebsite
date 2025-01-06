@@ -5,12 +5,23 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --vh: 1vh;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+  }
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-black text-white antialiased;
   }
 }
 
@@ -29,6 +40,12 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+/* Prevent animations until after hydration */
+*:not(.render-complete) * {
+  animation-duration: 0s !important;
+  transition: none !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -74,6 +91,23 @@ section {
   transition: all 0.5s ease-in-out;
 }
 
+/* Ensure proper viewport height on mobile */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Hide scrollbar but maintain functionality */
+.overflow-auto {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.overflow-auto::-webkit-scrollbar {
+  display: none;
+}
+
 /* Cube Styles */
 .cube {
   width: 200px;
@@ -104,3 +138,35 @@ section {
 .left { transform: rotateY(-90deg) translateZ(100px); }
 .top { transform: rotateX(90deg) translateZ(100px); }
 .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+@layer components {
+  .page-section {
+    @apply min-h-[calc(var(--vh,1vh)*100)] w-full relative flex flex-col;
+  }
+
+  .page-container {
+    @apply flex-1 flex flex-col justify-center items-center px-6 py-24 relative;
+  }
+
+  .content-container {
+    @apply w-full max-w-7xl mx-auto relative z-10;
+  }
+
+  .gradient-background {
+    @apply absolute inset-0 pointer-events-none;
+  }
+
+  .bg-pattern {
+    @apply absolute inset-0 opacity-10 pointer-events-none;
+  }
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

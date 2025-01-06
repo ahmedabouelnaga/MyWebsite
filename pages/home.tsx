@@ -65,7 +65,7 @@ export function HomeSection() {
 
           {/* Description */}
           <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Computer Science student at Columbia University, passionate about building intelligent systems 
+            Computer Science Student at Columbia University, passionate about changing the world
             and creating meaningful software solutions.
           </p>
         </motion.div>

@@ -3,15 +3,25 @@ import type { AppProps } from 'next/app';
 import Navbar from '../components/Navbar';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
-  // Add this effect to reset scroll position
   useEffect(() => {
+    setMounted(true);
     window.scrollTo(0, 0);
   }, [router.pathname]);
+
+  if (!mounted) {
+    return (
+      <>
+        <Navbar />
+        <Component {...pageProps} />
+      </>
+    );
+  }
 
   return (
     <AnimatePresence mode="wait">
@@ -22,10 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
-        {/* Our SINGLE Navbar for all routes */}
         <Navbar />
-
-        {/* Render whatever page the user visits */}
         <Component {...pageProps} />
       </motion.div>
     </AnimatePresence>

@@ -53,32 +53,24 @@ const workExperiences: WorkExperience[] = [
     ],
     skills: ["Java", "Python", "Data Structures", "Algorithms", "Teaching"],
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-16 w-16 text-blue-700"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 14l9-5-9-5-9 5-9 5z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 14v6"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 14l-3.5 2M12 14l3.5 2"
-        />
-      </svg>
+      <div className="flex items-center justify-center w-full h-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-[64px] h-[64px] text-blue-700" // Adjusted size to match others
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
+          />
+        </svg>
+      </div>
     ),
-    bgColor: "bg-blue-100",
+    bgColor: "bg-blue-100 flex items-center justify-center min-w-[88px] min-h-[88px]", // Added min-width and min-height
     companyUrl: "https://www.cs.columbia.edu"
   },
   {
@@ -88,7 +80,7 @@ const workExperiences: WorkExperience[] = [
     period: "August 2021 - September 2021",
     description: [
       "Developed “EduSpark,” a mobile app for 2,000+ student.",
-      "  featuring 50+ interactive lessons on digital literacy and programming.",
+      "  Featuring 50+ interactive lessons on digital literacy and programming.",
       " Implemented responsive design resulting in 40% increase in mobile user engagement.",
       " Created 20+ reusable components reducing development time by 35%."
     ],
@@ -109,7 +101,7 @@ const workExperiences: WorkExperience[] = [
     role: "App Development Intern",
     period: "June 2021 - August 2021",
     description: [
-      "Built &apos;Task Breaker&apos; app to support 50+ individuals with disabilities in managing daily tasks, appointments, doctor visits, and medications.",
+      "Built Task Breaker, an app to support 50+ individuals with disabilities in managing daily tasks, appointments, doctor visits, and medications.",
       " Implemented 10+ key features resulting in 85% user satisfaction rate.",
       " Reduced app loading time by 45% ",
       " through code optimization and caching.Integrated 5 third-party APIs to enhance app functionality and user experience."
@@ -131,7 +123,7 @@ const workExperiences: WorkExperience[] = [
     role: "Game Designer Intern",
     period: "February 2021 - June 2021",
     description: [
-      "Developed &apos;Just Keep Rolling&apos; game achieving 85% positive reviews from 500+ players.",
+      "Developed Just Keep Rolling, a game achieving 85% positive reviews from 500+ players.",
       " Optimized game performance resulting in 60% reduction in loading times.",
       " Implemented 12 unique game mechanics leading to 30% increase in player retention.",
       " Collaborated with 3 artists and 2 sound designers to create immersive gaming experience."
