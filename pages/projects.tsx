@@ -41,7 +41,7 @@ const projects: Project[] = [
     description: "An AI system that helps optimize grocery shopping for cost and health.",
     longDescription: "Using advanced data analytics to minimize waste and manage nutritional goals effectively.",
     techStack: ["Python", "TensorFlow","React", "Node.js", "Flask"],
-    image: "/projects/smartcrop.jpg",
+    image: "/projects/aipoweredgroceryoptimizer.jpg",
     github: "https://github.com/yourusername/smartcrop"
   }
 ];
