@@ -19,63 +19,35 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "SmartCrop - AI-Powered Agriculture",
-    description: "An AI system that uses computer vision to analyze crop health and optimize watering schedules.",
-    longDescription: "Using cutting-edge machine learning algorithms to revolutionize agricultural practices, improving crop yields while reducing water waste.",
-    techStack: ["Python", "TensorFlow", "OpenCV", "React", "Node.js"],
-    image: "/projects/smartcrop.jpg",
-    github: "https://github.com/yourusername/smartcrop"
+    title: "HTTP-Server",
+    description: "A lightweight HTTP server for static content or APIs.",
+    longDescription: "Handles requests/responses effectively for easy deployment of static sites or web apps.",
+    techStack: ["C", "Sockets", "UNIX", "Linux"],
+    image: "/projects/httpserver.jpg",
+    demo: "https://gist.github.com/ahmedabouelnaga/1d70f295d98bf8511d056564233d54c8"
   },
   {
     id: 2,
-    title: "AI Tutor - Personalized Learning",
+    title: "Personalized AI Tutor",
     description: "Machine learning-driven platform providing personalized education recommendations.",
     longDescription: "Advanced AI algorithms analyze student performance and learning patterns to create tailored educational paths and content recommendations.",
-    techStack: ["Python", "PyTorch", "Next.js", "PostgreSQL"],
+    techStack: ["Python", "TensorFlow", "Next.js", "PostgreSQL"],
     image: "/projects/aitutor.jpg",
     github: "https://github.com/yourusername/ai-tutor"
   },
   {
     id: 3,
-    title: "MedAssist - Healthcare AI",
-    description: "AI-powered health assistant using natural language processing for preliminary health analysis.",
-    longDescription: "Leveraging NLP and machine learning to provide initial health assessments and medical information assistance.",
-    techStack: ["Python", "TensorFlow", "NLP", "React", "MongoDB"],
-    image: "/projects/medassist.jpg",
-    github: "https://github.com/yourusername/medassist"
-  },
-  {
-    id: 4,
-    title: "AutoBudget - Financial Planning",
-    description: "Smart budgeting tool that analyzes spending patterns and provides personalized financial advice.",
-    longDescription: "AI-driven financial analysis tool that helps users understand their spending habits and make better financial decisions.",
-    techStack: ["Python", "Machine Learning", "React", "Node.js"],
-    image: "/projects/autobudget.jpg",
-    github: "https://github.com/yourusername/autobudget"
-  },
-  {
-    id: 5,
-    title: "EcoTracker - Environmental Monitor",
-    description: "IoT-based system for monitoring and analyzing environmental data in real-time.",
-    longDescription: "Comprehensive environmental monitoring system using IoT sensors and real-time data analysis.",
-    techStack: ["Python", "IoT", "React", "AWS"],
-    image: "/projects/ecotracker.jpg",
-    github: "https://github.com/yourusername/ecotracker"
-  },
-  {
-    id: 6,
-    title: "CodeMentor - Programming Assistant",
-    description: "AI-powered coding assistant that helps developers write better code and learn programming concepts.",
-    longDescription: "Intelligent coding assistant that provides real-time suggestions, code analysis, and programming concept explanations.",
-    techStack: ["Python", "NLP", "TypeScript", "Node.js"],
-    image: "/projects/codementor.jpg",
-    github: "https://github.com/yourusername/codementor"
+    title: "AI Powered Grocery Optimizer",
+    description: "An AI system that helps optimize grocery shopping for cost and health.",
+    longDescription: "Using advanced data analytics to minimize waste and manage nutritional goals effectively.",
+    techStack: ["Python", "TensorFlow","React", "Node.js", "Flask"],
+    image: "/projects/smartcrop.jpg",
+    github: "https://github.com/yourusername/smartcrop"
   }
 ];
 
 export function ProjectsSection() {
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   const allTechnologies = [...new Set(projects.flatMap(p => p.techStack))];
   
@@ -151,8 +123,6 @@ export function ProjectsSection() {
               key={project.id}
               layoutId={`project-${project.id}`}
               whileHover={{ y: -8, scale: 1.02 }}
-              onHoverStart={() => setHoveredProject(project.id)}
-              onHoverEnd={() => setHoveredProject(null)}
               className="group relative bg-gray-950/30 backdrop-blur-sm rounded-xl overflow-hidden border border-indigo-500/10 hover:border-indigo-500/20"
             >
               {/* Project Image */}
@@ -179,19 +149,35 @@ export function ProjectsSection() {
                     </span>
                   ))}
                 </div>
-              </div>
 
-              {hoveredProject === project.id && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent flex items-end p-6"
-                >
-                  <p className="text-gray-200 text-sm line-clamp-3">
-                    {project.longDescription}
-                  </p>
-                </motion.div>
-              )}
+                {project.demo && (
+                  <motion.a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-full font-medium transition-colors
+                               hover:bg-blue-500 pointer-events-auto"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    View Project!
+                  </motion.a>
+                )}
+
+                {project.github && (
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-full font-medium transition-colors
+                               hover:bg-blue-500 pointer-events-auto"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    View Project!
+                  </motion.a>
+                )}
+              </div>
             </motion.div>
           ))}
         </motion.div>
