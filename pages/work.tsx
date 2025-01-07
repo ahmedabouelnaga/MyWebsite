@@ -168,6 +168,11 @@ const workExperiences: WorkExperience[] = [
   }
 ];
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 }
+};
+
 export function WorkSection() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
@@ -214,11 +219,13 @@ export function WorkSection() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           className="space-y-8"
         >
           {workExperiences.map((exp) => (
             <motion.div
+              variants={itemVariants}
               key={exp.id}
               whileHover={{ y: -4 }}
               className="bg-gray-800/30 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700/50 hover:border-gray-600/50 transition-colors"

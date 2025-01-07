@@ -13,23 +13,30 @@ const languagesData: SkillItem[] = [
   { name: 'Java', years: 4 },
   { name: 'Python', years: 3 },
   { name: 'JavaScript', years: 3 },
+  { name: 'TypeScript', years: 3 },
   { name: 'HTML/CSS', years: 3 },
-  { name: 'SQL', years: 2 },
+  { name: 'SQL(MySQL, Postgres)', years: 2 },
   { name: 'Node.js', years: 2 },
   { name: 'React.js', years: 3 },
   { name: 'MATLAB', years: 2 },
   { name: 'C++', years: 2 },
   { name: 'C', years: 1 },
   { name: 'Swift (iOS)', years: 1 },
-  { name: 'Go', years: 1 },  // Added GoLang
+  { name: 'Go', years: 1 },
+  { name: 'X86 Assembly', years: 1 },
 ];
 
 const frameworksData: SkillItem[] = [
   { name: 'ReactJS', years: 3 },
   { name: 'PostgreSQL', years: 2 },
   { name: 'Spring Boot', years: 2 },
+  { name: 'GCP', years: 2 },
+  { name: 'Postman', years: 2 },
   { name: 'Natural Language Processing', years: 1 },
+  { name: 'Bash', years: 2 },
   { name: 'Large Language Models', years: 1 },
+  { name: 'UNIX/LINUX', years: 2 },
+  { name: 'Git', years: 2 },
   { name: 'Bootstrap', years: 2 },
   { name: 'AWS', years: 1 },
 ];
