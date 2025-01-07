@@ -19,14 +19,13 @@ interface WorkExperience {
 const workExperiences: WorkExperience[] = [
   {
     id: 1,
-    company: "Google",
-    role: "CSSI Intern",
+    company: "Google(CSSI)",
+    role: "Web Developer Intern",
     period: "June 2020 - August 2020",
     description: [
       "Selected as top 3% of applicants for Google's prestigious Computer Science Summer Institute from 1000+ candidates.",
-      " Developed a travel recommendation platform that increased user engagement by 40% and daily active users by 25%.",
-      " Led a team of 5 engineers to implement 15+ new features using Google Cloud Platform.",
-      " Achieved 98% test coverage and reduced page load time by 35% through optimization."
+      "Developed \"TravelSphere,\" a travel app using React.js, Tailwind CSS, and Python APIs on Google App Engine, driving 60% user growth and 40% higher engagement through analytics insights.",
+      "Implemented data analytics that enabled 500+ users to make informed travel decisions, improving trip planning efficiency by 25% and reducing time costs by 10%"
     ],
     skills: ["Python", "JavaScript", "Machine Learning", "Google Cloud", "APIs"],
     icon: (
@@ -77,7 +76,7 @@ const workExperiences: WorkExperience[] = [
     id: 3,
     company: "Techie Youth",
     role: "Software Engineer Intern",
-    period: "August 2021 - September 2021",
+    period: "July 2021 - September 2021",
     description: [
       "Developed “EduSpark,” a mobile app for 2,000+ student.",
       "  Featuring 50+ interactive lessons on digital literacy and programming.",
@@ -99,7 +98,7 @@ const workExperiences: WorkExperience[] = [
     id: 4,
     company: "Design The Future",
     role: "App Development Intern",
-    period: "June 2021 - August 2021",
+    period: "September 2021 - December 2021",
     description: [
       "Built Task Breaker, an app to support 50+ individuals with disabilities in managing daily tasks, appointments, doctor visits, and medications.",
       " Implemented 10+ key features resulting in 85% user satisfaction rate.",
@@ -111,7 +110,9 @@ const workExperiences: WorkExperience[] = [
       <svg viewBox="0 0 24 24" className="h-16 w-16 text-purple-700">
         <path
           fill="currentColor"
-          d="M17,2 C19.2,2 21,3.8 21,6 L21,18 C21,20.2 19.2,22 17,22 L7,22 C4.8,22 3,20.2 3,18 L3,6 C3,3.8 4.8,2 7,2 L17,2 Z M12,18 C11.4,18 11,17.6 11,17 C11,16.4 11.4,16 12,16 C12.6,16 13,16.4 13,17 C13,17.6 12.6,18 12,18 Z"
+          d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2
+             2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-5 19a1 1 0
+             1 1 0-2 1 1 0 0 1 0 2zm5-4H7V5h10v12z"
         />
       </svg>
     ),
@@ -138,6 +139,32 @@ const workExperiences: WorkExperience[] = [
       </svg>
     ),
     bgColor: "bg-indigo-100"
+  },
+  {
+    id: 6,
+    company: "Cita Marketplace",
+    role: "Software Engineer Intern",
+    period: "June 2023 - August 2023",
+    description: [
+      "Developed a full-stack web application using React.js, Express.js, and MongoDB for managing a marketplace platform.",
+      "Implemented real-time notifications and chat features using Socket.IO, improving user engagement by 45%.",
+      "Built RESTful APIs and integrated authentication using JWT, handling 1000+ daily user requests.",
+      "Optimized database queries and implemented caching, reducing load times by 60%."
+    ],
+    skills: ["React.js", "Node.js", "MongoDB", "Socket.IO", "Express.js", "REST APIs"],
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-16 w-16 text-green-600">
+        <path
+          fill="currentColor"
+          d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10
+             0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zm-10.83-2l1.1-2h9.45c.75
+             0 1.41-.41 1.75-1.03l3.58-6.49a.997.997 0 0 0-.86-1.48H5.21l-.94-2H1v2h2l3.6
+             7.59-1.35 2.44C5.09 14.28 5 14.62 5 15c0
+             1.1.9 2 2 2h12v-2H7c-.13 0-.25-.07-.31-.17l.03-.06z"
+        />
+      </svg>
+    ),
+    bgColor: "bg-green-100"
   }
 ];
 
